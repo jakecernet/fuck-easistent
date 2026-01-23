@@ -1,0 +1,9 @@
+apscheduler==3.11.2
+cachetools==6.2.4
+fastapi[standard]==0.128.0
+pwdlib[argon2]==0.3.0
+pydantic==2.12.5
+PyJWT==2.10.1
+python-dotenv==1.2.1
+requests==2.32.5
+starlette==0.50.0
