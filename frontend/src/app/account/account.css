@@ -1,0 +1,124 @@
+main {
+    display: flex;
+    align-items: center;
+    
+    flex-direction: column;
+    min-height: calc(100svh - 80px);
+}
+h2 {
+    font-size: 56px;
+}
+
+form  {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+form > label {
+    margin-right: auto;
+    left: 0;
+}
+
+
+.inviteCode {
+    background-color: var(--secondary);
+    height: 9em;
+    width: 9em;
+    font-size: 20px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+.inviteCode > span {
+    font-weight: 800;
+}
+.inviteCodes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    
+}
+
+
+.inviteCode {
+    position: relative;
+}
+
+.inviteCode > .delete {
+    height: 32px;
+    width: 32px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+
+}
+
+#info {
+    width: 50%;
+    text-align: justify;
+}
+
+.deleteAccount {
+    background-color: var(--error);
+    border-color: rgb(128, 0, 0);
+    color: white;
+}
+
+.modalBackground {
+    top: 0;
+    left: 0;
+    position: fixed;
+    height: 100svh;
+    width: 100svw;
+    background-color: rgba(8, 0, 0, 0.32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: blurAnimation 300ms forwards;
+}
+
+@keyframes blurAnimation {
+    0% {
+        backdrop-filter: blur(0px);
+    }
+    100% {
+        backdrop-filter: blur(10px);
+    }
+}
+.container {
+    background-color: var(--background);
+    padding: 20px;
+    border-radius: 8px;
+    border: 3px solid var(--error);
+    opacity: 0.0;
+    animation: opacityAnimation 500ms forwards
+}
+@keyframes opacityAnimation {
+    0% {
+        opacity: 0.0;
+    }
+    30% {
+        opacity: 0.60;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.modalBackground  h2 {
+    text-align: center;
+}
+.modalBackground  p {
+    text-align: center;
+}
+.controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}

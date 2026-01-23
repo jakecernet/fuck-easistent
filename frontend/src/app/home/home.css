@@ -1,0 +1,25 @@
+  header,
+  section,
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  section,
+  header {
+    height: 100svh;
+  }
+
+  footer {
+    height: 80px;
+    background-color: var(--background);
+    color: var(--primary);
+  }
+  section > p {
+    text-align: justify;
+    width:50%;
+    font-size: 20px;
+  }

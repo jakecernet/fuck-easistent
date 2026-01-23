@@ -1,0 +1,20 @@
+.container {
+    box-sizing: border-box;
+    border-radius:8px;
+    width: 100%;
+    background-color: var(--secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    
+}
+
+.value > .label {
+display: block;
+color: var(--primary);
+}
+
+.value > .data {
+    font-weight: 700;
+}

@@ -1,0 +1,15 @@
+.grades {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+h2 {
+    text-align: center;
+}
+
+#spacer {
+    height: 40px;
+}

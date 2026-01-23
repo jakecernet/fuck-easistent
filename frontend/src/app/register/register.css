@@ -1,0 +1,85 @@
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: calc(100svh - 80px);
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 28px
+    
+}
+
+h2 {
+    font-size: 36px;
+}
+
+label {
+    left: 0;
+    margin-right: auto;
+    display: block;
+}
+
+
+
+
+#showPassword {
+    height: 2.5em;
+    width: 2.5em;
+    margin: 5px;
+    box-sizing: border-box;
+    position: absolute;
+    right: 0px;
+    background-color: transparent;
+    transition: all 200ms ;
+
+
+
+}
+
+#showPassword:hover {
+    background-color: rgba(0, 0, 0, 0.224);
+}
+
+.passwordContainer {
+    position: relative;
+}
+
+#showPassword > img {
+    margin: 0;
+    padding: 0;
+}
+.error > span{
+    display: block;
+    color: var(--error);
+    width: 16em;
+}
+
+.error {
+    color: var(--error);
+}
+#loginerror {
+    margin: 0;
+}
+
+#refreshIndicator {
+    box-sizing: border-box;
+    height: calc(100% - 12px);
+    margin: 6px;
+    animation: spin 2000ms infinite;
+}
+
+@keyframes spin {
+    0% {
+        rotate: 0deg;
+    }
+    100% {
+        rotate: 360deg;
+    }
+    
+}

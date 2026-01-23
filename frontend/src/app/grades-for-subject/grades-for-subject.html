@@ -1,0 +1,35 @@
+<main>
+  @if (isLoading()) {
+  <div class="whole-screen-centered">
+    <p>Loading...</p>
+  </div>
+  } @else if (subject() == null) {
+  <div class="whole-screen-centered">
+    <p>This subject does not exist!</p>
+  </div>
+  } @else {
+  <h2>{{ subject()!.short_name }}</h2>
+  <p class="subtitle">{{ subject()!.name }}</p>
+  @if (averageGrade() < 0) {
+  <p id="avg">Fetching average grade from eAsistent</p>
+  } @else if (averageGrade() == 0) {
+  <p id="avg">No average grade</p>
+  } @else {
+  <p id="avg" title="Results could be stale for 1 hour">
+    Average grade: <span style="font-weight: 800; color: var(--accent2)">{{ averageGrade() }}</span>
+  </p>
+  }
+  <p id="avg" title="Average calculated from local grades">
+    Local average: <span style="font-weight: 800; color: var(--accent2)">{{ localAverage() }}</span>
+  </p>
+
+  <div class="grades">
+    @for (grade of grades(); track grade.id) {
+    <app-grade-info [grade]="grade"></app-grade-info>
+
+    } @empty {
+    <p style="text-align: center">No grades yet...</p>
+    }
+  </div>
+  }
+</main>

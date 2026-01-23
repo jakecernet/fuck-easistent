@@ -1,0 +1,14 @@
+<div
+  [style.background-color]="stringToSaturatedColor(subject)"
+  class="grade"
+  (click)="openSubjectRoute()"
+>
+  <span class="subj">{{ subject }}</span>
+  <div class="values">
+    @for (g of grades; track $index) {
+    <span class="gradeValue">{{ g }}</span>
+    } @empty { The are no grades yet... }
+  </div>
+
+  <span class="avg" title="Average grade calculated from the local data">{{ getAvg() }}</span>
+</div>

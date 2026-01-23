@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=SUSE+Mono:ital,wght@0,100..800;1,100..800&family=SUSE:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    background-color: var(--background);
+    margin: 0;
+    font-family: "SUSE", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    color: white;
+}
+* {
+    font-family: "SUSE", sans-serif;
+}
+:root {
+    --background: #0a181e;
+    --secondary: #655b55;
+    --error: #fb3640;
+    --primary: #83ff76;
+    --accent: #ff8164;
+    --accent2: #c8ffb6;
+}
+
+input {
+    height: 3em;
+    width: 20em;
+    border-radius: 5px;
+    background-color: var(--secondary);
+    border: none;
+    outline: none;
+    color: var(--primary);
+    letter-spacing: 1px;
+    font-weight: 600;
+transition: all 200ms;
+}
+
+input:hover {
+    filter: brightness(0.9);
+    
+}
+
+button {
+    background-color: var(--secondary);
+     height: 3em;
+     width: 16em;
+     border: 2px solid var(--primary);
+     outline: none;
+     border-radius: 5px;
+     color: var(--primary);
+     font-weight: 700;
+    
+     transition: all 200ms;
+     
+     
+}
+
+button:hover {
+    filter: brightness(1.2);
+}
+
+a {
+    color: var(--accent2);
+}

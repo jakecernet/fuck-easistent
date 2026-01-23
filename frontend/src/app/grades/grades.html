@@ -1,0 +1,13 @@
+<main>
+  <h2>{{ authService.getUsername() }}'s grades</h2>
+  <div class="grades">
+    @for (subj of gradesMap(); track subj.subject.id) {
+    <app-grade-item
+      [subject]="subj.subject.short_name"
+      [grades]="subj.getGradeValues()"
+      [subject_id]="subj.subject.id"
+    ></app-grade-item>
+    }
+  </div>
+  <div id="spacer"></div>
+</main>

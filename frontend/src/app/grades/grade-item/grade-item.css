@@ -1,0 +1,32 @@
+.grade {
+    display: flex;
+    width: 50em;
+    max-width: 100%;
+    background-color: rgb(27, 137, 255);
+    padding: 25px;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.subj {
+    font-weight: 800;
+    font-size: 20px;
+    min-width: 70px;
+    
+}
+
+.values {
+    display: flex;
+    gap: 6px;
+}
+.avg {
+    font-weight: 600;
+}
+
+.gradeValue {
+    font-weight: 600;
+    font-size: 18px;
+}
