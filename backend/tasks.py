@@ -68,7 +68,11 @@ def fetch_and_insert_grades(subject_id, user_id, grade_fetcher: GradeFetcher):
 
 
 def ensure_admin():
-    admin_password = os.environ["ADMIN_PASSWORD"]
+    if "ADMIN_PASSWORD" in os.environ:
+        admin_password = os.environ["ADMIN_PASSWORD"]
+    else:
+        admin_password = "changeme"
+        
     hashed = password_hash.hash(admin_password, salt=random.randbytes(8))
 
     if admin := db.get_user("admin"):
