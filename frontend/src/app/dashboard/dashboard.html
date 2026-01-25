@@ -1,0 +1,20 @@
+<main>
+  <h2>Hello, {{ authService.getUsername() }}</h2>
+  <p>
+    Total grades saved: <span class="strongValue">{{ grades().length }}</span>
+  </p>
+  <p>
+    Last check time: <span class="strongValue">{{ getLastCheckTimeFormatted() }}</span>
+  </p>
+  <p>
+    Last full check time: <span class="strongValue">{{ getLastFullCheckTimeFormatted() }}</span>
+  </p>
+  <div class="horizontalGrades">
+    @for (grade of grades(); track $index) {
+      <div class="grade" [style.background-color]="stringToSaturatedColor(grade.subject)">
+        <span class="value">{{ grade.value }}</span>
+        <span class="shortName">{{ grade.subject }}</span>
+      </div>
+    }
+  </div>
+</main>

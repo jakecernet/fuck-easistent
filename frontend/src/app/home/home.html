@@ -1,5 +1,22 @@
 <main>
   <header>
+    <div class="background">
+      @for (card of parallaxInfos; track $index) {
+        <div
+          class="grade"
+          #gradeCard
+          [style.z-index]="card.z_index"
+          [style.--overlay-opacity]="0.6 - card.depth"
+          [style.filter]="'blur(' + card.depth * 8 + 'px)'"
+        >
+          <span class="short-name">{{ card.shortName }}</span>
+
+          <p class="long-name">{{ card.name }}</p>
+
+          <span class="value">{{ card.value }}</span>
+        </div>
+      }
+    </div>
     <h1>Fuck eAsistent</h1>
     <p>A project to get eAsistent premium features for free.</p>
   </header>

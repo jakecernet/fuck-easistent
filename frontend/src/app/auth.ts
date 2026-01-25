@@ -59,9 +59,9 @@ export class Auth {
           this.http.get(environment.apiUrl + '/user').subscribe((res) => {
             this.username = (res as any).username;
             localStorage.setItem('username', this.username);
+            this.router.navigate(['/dashboard']);
           });
-          this.router.navigate(['/']);
-        })
+        }),
       );
   }
 
@@ -81,7 +81,7 @@ export class Auth {
       .pipe(
         tap((response) => {
           this.router.navigate(['/login']);
-        })
+        }),
       );
   }
   deleteAccount(): Observable<boolean> {
@@ -96,7 +96,7 @@ export class Auth {
       }),
       catchError((err) => {
         return of(false);
-      })
+      }),
     );
   }
 }

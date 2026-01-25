@@ -20,7 +20,7 @@ export class Grade {
     subject_id: number,
     entered_by: string,
     semester: number,
-    type: string
+    type: string,
   ) {
     this.id = id;
     this.value = value;
@@ -38,7 +38,7 @@ export class Grade {
       raw.subject_id,
       raw.entered_by,
       raw.semester,
-      raw.type
+      raw.type,
     );
   }
 }
@@ -51,6 +51,20 @@ export class Subject {
     this.id = id;
     this.short_name = short_name;
     this.name = name;
+  }
+}
+
+export class SummarizedGrade {
+  subject_id: number;
+  grade_id: number;
+  value: number;
+  subject: string;
+
+  constructor(subject_id: number, grade_id: number, value: number, subject: string) {
+    this.subject_id = subject_id;
+    this.grade_id = grade_id;
+    this.value = value;
+    this.subject = subject;
   }
 }
 
@@ -68,7 +82,7 @@ export class Grades {
           this.authService.logout();
         }
         return of([]);
-      })
+      }),
     );
   }
 
@@ -80,19 +94,29 @@ export class Grades {
         }
 
         return of(null);
-      })
+      }),
     );
   }
 
-  getGrades(subject_id: number): Observable<Grade[]> {
-    return this.http.get<any[]>(environment.apiUrl + '/grades/' + subject_id).pipe(
+  getGrades(subject_id: number | null): Observable<Grade[]> {
+    return this.http.get<any[]>(environment.apiUrl + '/grades/' + (subject_id ?? '')).pipe(
       map((items) => items.map(Grade.fromApi)),
       catchError((err) => {
         if (err.status == 401) {
           this.authService.logout();
         }
         return of([]);
-      })
+      }),
+    );
+  }
+  getSummarizedGrades(): Observable<SummarizedGrade[]> {
+    return this.http.get<SummarizedGrade[]>(environment.apiUrl + '/summarized_grades/').pipe(
+      catchError((err) => {
+        if (err.status == 401) {
+          this.authService.logout();
+        }
+        return of([]);
+      }),
     );
   }
   getAverageGrade(subject_id: number): Observable<number> {
@@ -103,7 +127,7 @@ export class Grades {
           this.authService.logout();
         }
         return of(0.0);
-      })
+      }),
     );
   }
 
@@ -119,7 +143,7 @@ export class Grades {
         }),
         catchError((r) => {
           return of(false);
-        })
+        }),
       );
   }
 }

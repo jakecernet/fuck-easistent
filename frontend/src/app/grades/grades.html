@@ -2,11 +2,16 @@
   <h2>{{ authService.getUsername() }}'s grades</h2>
   <div class="grades">
     @for (subj of gradesMap(); track subj.subject.id) {
-    <app-grade-item
-      [subject]="subj.subject.short_name"
-      [grades]="subj.getGradeValues()"
-      [subject_id]="subj.subject.id"
-    ></app-grade-item>
+      <app-grade-item
+        [subject]="subj.subject.short_name"
+        [grades]="subj.getGradeValues()"
+        [subject_id]="subj.subject.id"
+      ></app-grade-item>
+    } @empty {
+      <p style="text-align: center">
+        You have no grades yet. <br />
+        If you have submitted your eAsistent login info they should appear shortly.
+      </p>
     }
   </div>
   <div id="spacer"></div>
