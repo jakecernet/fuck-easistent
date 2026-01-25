@@ -56,6 +56,8 @@ async def check_for_new_grades():
     print("[Ended checking]")
     if should_full_check:
         last_full_check_time = int(time.time())
+        db.set_last_full_check_time(last_full_check_time)
+    db.set_last_check_time(int(time.time()))
 
 
 def fetch_and_insert_grades(subject_id, user_id, grade_fetcher: GradeFetcher):
@@ -72,7 +74,7 @@ def ensure_admin():
         admin_password = os.environ["ADMIN_PASSWORD"]
     else:
         admin_password = "changeme"
-        
+
     hashed = password_hash.hash(admin_password, salt=random.randbytes(8))
 
     if admin := db.get_user("admin"):

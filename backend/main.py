@@ -2,11 +2,11 @@ from contextlib import asynccontextmanager
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from starlette.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-
+from datetime import datetime
 from fastapi import FastAPI
 
 import db
-from api import user_router, grades_router, invite_router
+from api import user_router, grades_router, invite_router, info_router
 from tasks import check_for_new_grades, ensure_admin
 
 
@@ -22,6 +22,7 @@ async def lifespan(app: FastAPI):
         seconds=60,
         max_instances=1,
         coalesce=True,
+        next_run_time=datetime.now(),
     )
     scheduler.start()
 
@@ -36,6 +37,7 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(user_router)
 app.include_router(grades_router)
 app.include_router(invite_router)
+app.include_router(info_router)
 
 app.add_middleware(
     CORSMiddleware,

@@ -28,6 +28,11 @@ class SubjectModel(BaseModel):
     name: str
     short_name: str
 
+class SummarizedGrade(BaseModel):
+    subject_id: int
+    grade_id: int
+    value: int
+    subject: str
 
 @router.get("/subjects")
 def get_subjects(user: Annotated[User, Depends(get_current_user)]) -> list[SubjectModel]:
@@ -59,6 +64,11 @@ class GradeResponse(BaseModel):
 @router.get("/grades")
 def get_grades(user: Annotated[User, Depends(get_current_user)]) -> list[GradeResponse]:
     return db.get_grades(user.id)
+
+
+@router.get("/summarized_grades")
+def get_grades(user: Annotated[User, Depends(get_current_user)]) -> list[SummarizedGrade]:
+    return db.get_summarized_grades(user.id)
 
 
 @router.get("/grades/{subject_id}", )
@@ -102,3 +112,4 @@ def insert_grade(grade: GradeModel, user: Annotated[User, Depends(get_current_us
                                          entered_by=grade.entered_by, semester=grade.semester, date=grade.date,
                                          short_subject=grade.short_subject_name, subject=grade.subject_name))
     return {"success": res, "message": ""}
+
