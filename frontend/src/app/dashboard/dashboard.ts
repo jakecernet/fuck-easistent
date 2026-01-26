@@ -83,4 +83,20 @@ export class Dashboard {
 
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   }
+
+  gradeAverage(): string {
+    if (this.grades().length == 0) {
+      return "None"
+    }
+
+    let sum = 0;
+
+    this.grades().forEach((el) => {
+      sum += el.value;
+    });
+
+
+    return (sum / this.grades().length).toFixed(2);
+  }
+
 }

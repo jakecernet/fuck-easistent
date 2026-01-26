@@ -146,6 +146,20 @@ def connect() -> Connection:
     return db
 
 
+def clear_data(user_id):
+    db = connect()
+    try:
+        db.execute("DELETE FROM Grades WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM Subjects WHERE user_id = ?", (user_id,))
+        db.execute("DELETE FROM Logins WHERE user_id = ?", (user_id,))
+        db.commit()
+        return True
+    except Exception as e:
+        db.rollback()
+        print("[ERROR]", e)
+        return False
+
+
 def set_last_check_time(last_check_time: int):
     db = connect()
     db.execute("UPDATE ServerInfo SET last_check = ? WHERE id = 1", (last_check_time,))

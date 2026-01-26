@@ -9,12 +9,13 @@
   <p>
     Last full check time: <span class="strongValue">{{ getLastFullCheckTimeFormatted() }}</span>
   </p>
+  <p>Average grade: <span class="strongValue">{{gradeAverage()}}</span></p>
   <div class="horizontalGrades">
     @for (grade of grades(); track $index) {
-      <div class="grade" [style.background-color]="stringToSaturatedColor(grade.subject)">
-        <span class="value">{{ grade.value }}</span>
-        <span class="shortName">{{ grade.subject }}</span>
-      </div>
+    <div class="grade" [style.background-color]="stringToSaturatedColor(grade.subject)">
+      <span class="value">{{ grade.value }}</span>
+      <span class="shortName">{{ grade.subject }}</span>
+    </div>
     }
   </div>
 </main>

@@ -46,6 +46,18 @@ export class Account {
     });
   }
 
+  clearData() {
+    if (confirm("Are you sure?\nThis deletes all saved grades.")) {
+      this.gradeService.clearData().subscribe(res => {
+        if (res) {
+          alert("Saved data deleted succesfully!");
+        } else {
+          alert("Failed to delete data!")
+        }
+      });
+    }
+  }
+
   addLoginInfo(e: Event) {
     e.preventDefault();
     if (!confirm('Are you sure you want to add this login info?')) {

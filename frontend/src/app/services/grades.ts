@@ -146,4 +146,19 @@ export class Grades {
         }),
       );
   }
+
+  clearData(): Observable<boolean> {
+    return this.http
+      .post<{ success: boolean }>(environment.apiUrl + '/clear_data',
+        {}
+      )
+      .pipe(
+        map((r) => {
+          return r.success;
+        }),
+        catchError((r) => {
+          return of(false);
+        }),
+      );
+  }
 }

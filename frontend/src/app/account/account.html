@@ -30,8 +30,7 @@
     @for (code of inviteCodes(); track $index) {
 
     <div class="inviteCode">
-      <span>{{ code }}</span
-      ><button class="delete" (click)="removeInviteCode(code)">x</button>
+      <span>{{ code }}</span><button class="delete" (click)="removeInviteCode(code)">x</button>
     </div>
     }@empty {
     <p>No invite codes</p>
@@ -40,6 +39,8 @@
 
   }
   <br />
+  <button class="deleteAccount" (click)="clearData()">Clear Data</button>
+
   @if (authService.getUsername() != "admin") {
   <button class="deleteAccount" (click)="deleteAccount()">Delete Account</button>
   }
