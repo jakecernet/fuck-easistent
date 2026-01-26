@@ -12,7 +12,9 @@
   <p>Average grade: <span class="strongValue">{{gradeAverage()}}</span></p>
   <div class="horizontalGrades">
     @for (grade of grades(); track $index) {
-    <div class="grade" [style.background-color]="stringToSaturatedColor(grade.subject)">
+
+    <div class="grade" [style.background-color]="stringToSaturatedColor(grade.subject)"
+      (click)="openSubjectPage(grade.subject_id)">
       <span class="value">{{ grade.value }}</span>
       <span class="shortName">{{ grade.subject }}</span>
     </div>

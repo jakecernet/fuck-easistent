@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Auth } from '../auth';
 import { Grades, Grade, SummarizedGrade } from '../services/grades';
 import { ServerInfo, ServerInfoData } from '../services/server-info';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +14,7 @@ export class Dashboard {
   authService = inject(Auth);
   gradesService = inject(Grades);
   infoService = inject(ServerInfo);
+  router = inject(Router);
 
   grades = signal<SummarizedGrade[]>([]);
   info = signal<ServerInfoData | null>(null);
@@ -97,6 +99,10 @@ export class Dashboard {
 
 
     return (sum / this.grades().length).toFixed(2);
+  }
+
+  openSubjectPage(subject_id: number) {
+    this.router.navigate(["grades", subject_id])
   }
 
 }
