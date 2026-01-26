@@ -7,15 +7,15 @@ nav {
     gap: 30px
 }
 
-nav > a {
+nav>a {
     color: var(--primary);
     text-decoration: none;
     font-weight: 700;
     letter-spacing: 1px;
-    
+
 }
 
-nav > a::after {
+nav>a::after {
     content: ' ';
     display: block;
     height: 3px;
@@ -23,9 +23,17 @@ nav > a::after {
     background-color: var(--primary);
     border-radius: 3px;
     transition: width 200ms;
-    
+
 }
 
-nav > a:hover::after {
+nav>a:hover::after {
     width: 0px;
+}
+
+
+@media (max-width: 700px) {
+    nav {
+        gap: 10px
+    }
+
 }
