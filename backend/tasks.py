@@ -8,6 +8,7 @@ from fetcher.login import get_session_token
 from fetcher.req import verify_session
 from fetcher.subject import SubjectFetcher
 from api.auth import password_hash
+from preferences import Preferences
 
 last_full_check_time = 0
 
@@ -16,7 +17,9 @@ async def check_for_new_grades():
     global last_full_check_time
     print("[Checking for new grades]")
     # Do a full check every hour
-    should_full_check = int(time.time()) - last_full_check_time > 60 * 60
+    should_full_check = int(time.time()) - last_full_check_time > Preferences.get(
+        "check_interval_full"
+    )
     if should_full_check:
         print("Doing a full check")
 
@@ -70,10 +73,7 @@ def fetch_and_insert_grades(subject_id, user_id, grade_fetcher: GradeFetcher):
 
 
 def ensure_admin():
-    if "ADMIN_PASSWORD" in os.environ:
-        admin_password = os.environ["ADMIN_PASSWORD"]
-    else:
-        admin_password = "changeme"
+    admin_password = Preferences.get("admin_password")
 
     hashed = password_hash.hash(admin_password, salt=random.randbytes(8))
 
@@ -84,3 +84,10 @@ def ensure_admin():
         db.change_user_password(admin["id"], hashed)
     else:
         db.insert_user("admin", hashed)
+
+
+def init_preferences():
+    Preferences.init()
+    Preferences.add("admin_password", "ADMIN_PASSWORD", "changeme")
+    Preferences.add("check_interval", "CHECK_INTERVAL_SECONDS", 60)
+    Preferences.add("check_interval_full", "CHECK_FULL_INTERVAL_SECONDS", 60 * 60)
