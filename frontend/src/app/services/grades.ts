@@ -110,7 +110,7 @@ export class Grades {
     );
   }
   getSummarizedGrades(): Observable<SummarizedGrade[]> {
-    return this.http.get<SummarizedGrade[]>(environment.apiUrl + '/summarized_grades/').pipe(
+    return this.http.get<SummarizedGrade[]>(environment.apiUrl + '/summarized_grades').pipe(
       catchError((err) => {
         if (err.status == 401) {
           this.authService.logout();
@@ -148,17 +148,13 @@ export class Grades {
   }
 
   clearData(): Observable<boolean> {
-    return this.http
-      .post<{ success: boolean }>(environment.apiUrl + '/clear_data',
-        {}
-      )
-      .pipe(
-        map((r) => {
-          return r.success;
-        }),
-        catchError((r) => {
-          return of(false);
-        }),
-      );
+    return this.http.post<{ success: boolean }>(environment.apiUrl + '/clear_data', {}).pipe(
+      map((r) => {
+        return r.success;
+      }),
+      catchError((r) => {
+        return of(false);
+      }),
+    );
   }
 }

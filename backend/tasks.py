@@ -9,11 +9,17 @@ from fetcher.req import verify_session
 from fetcher.subject import SubjectFetcher
 from api.auth import password_hash
 from preferences import Preferences
+import asyncio
 
 last_full_check_time = 0
 
 
 async def check_for_new_grades():
+    loop = asyncio.get_running_loop()
+    await loop.run_in_executor(None, check_for_new_grades_sync)
+
+
+def check_for_new_grades_sync():
     global last_full_check_time
     print("[Checking for new grades]")
     # Do a full check every hour
@@ -74,7 +80,7 @@ def fetch_and_insert_grades(subject_id, user_id, grade_fetcher: GradeFetcher):
 
 def ensure_admin():
     admin_password = Preferences.get("admin_password")
-
+    print(admin_password)
     hashed = password_hash.hash(admin_password, salt=random.randbytes(8))
 
     if admin := db.get_user("admin"):

@@ -3,13 +3,14 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from starlette.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from datetime import datetime
+from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI
 
 import db
 from api import user_router, grades_router, invite_router, info_router
 from preferences import Preferences
 from tasks import check_for_new_grades, ensure_admin, init_preferences
-
+from spa import SPAStaticFiles
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -34,11 +35,11 @@ async def lifespan(app: FastAPI):
 
 scheduler = AsyncIOScheduler()
 app = FastAPI(lifespan=lifespan)
-
 app.include_router(user_router, prefix="/api")
 app.include_router(grades_router, prefix="/api")
 app.include_router(invite_router, prefix="/api")
 app.include_router(info_router, prefix="/api")
+app.mount("/", SPAStaticFiles(directory="static", html=True), name="static")
 
 app.add_middleware(
     CORSMiddleware,

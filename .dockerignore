@@ -1,0 +1,18 @@
+# Python
+backend/__pycache__/
+backend/__pycache__/**
+backend/venv/
+backend/venv/**
+
+# Git
+**/.gitignore
+**/.gitattributes
+.git/
+
+**/.env
+
+# Database and static files
+backend/static/
+backend/static/**
+backend/data/
+backend/data/**
