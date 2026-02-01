@@ -80,9 +80,8 @@ def fetch_and_insert_grades(subject_id, user_id, grade_fetcher: GradeFetcher):
 
 def ensure_admin():
     admin_password = Preferences.get("admin_password")
-    print(admin_password)
     hashed = password_hash.hash(admin_password, salt=random.randbytes(8))
-
+    print("Initialized Admin")
     if admin := db.get_user("admin"):
         if password_hash.verify(admin_password, admin["password"]):
             return  # Password is already the same so no problem

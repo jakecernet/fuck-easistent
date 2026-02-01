@@ -4,6 +4,7 @@ from starlette.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from datetime import datetime
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi import FastAPI
 
 import db
@@ -48,3 +49,5 @@ app.add_middleware(
     allow_methods=["POST", "GET"],
     allow_headers=["*"],
 )
+
+app.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=5)
