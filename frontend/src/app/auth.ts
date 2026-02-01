@@ -59,7 +59,7 @@ export class Auth {
           this.http.get(environment.apiUrl + '/user').subscribe((res) => {
             this.username = (res as any).username;
             localStorage.setItem('username', this.username);
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/']);
           });
         }),
       );

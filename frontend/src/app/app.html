@@ -1,11 +1,10 @@
 <nav>
   @if (authService.isLoggedIn()) {
-    <a href="/dashboard">Dashboard</a>
+    <a href="/">Dashboard</a>
     <a href="/grades">Grades</a>
     <a href="/account">Account</a>
     <a href="/logout">Logout</a>
   } @else {
-    <a href="/">Home</a>
     <a href="/login">Log In</a>
     <a href="/register">Register</a>
   }
