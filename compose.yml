@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   server:
-    image: anzlc/fuck-easistent:dev
+    image: anzlc/fuck-easistent
     ports:
       - 8080:80
     environment:
@@ -13,4 +13,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  db_data:
+  fea_data:
