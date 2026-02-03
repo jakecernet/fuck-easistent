@@ -43,12 +43,12 @@ def check_for_new_grades_sync():
             db.set_session(user_id, ses)
 
         grade_fetcher = GradeFetcher(ses)
-        last_grade = grade_fetcher.get_last_grade_info()
-        if last_grade is None:
+        grades = grade_fetcher.get_all_grades()
+        if len(grades) == 0:
             continue
 
-        last_grade_id = last_grade["grade_id"]
-        last_subject_id = last_grade["subject_id"]
+        last_grade_id = grades[0]["grade_id"]
+        last_subject_id = grades[0]["subject_id"]
 
         subject_fetcher = SubjectFetcher(ses)
         subject_name_pairs = subject_fetcher.get_subject_name_pairs()

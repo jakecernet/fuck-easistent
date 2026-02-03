@@ -1,4 +1,5 @@
 from fetcher.req import AuthRequest
+from datetime import datetime
 
 
 class Grade:
@@ -78,7 +79,7 @@ class GradeFetcher:
         final = data["semesters"][-1]["final_grade"]
         return final
 
-    def get_last_grade_info(self):
+    def get_all_grades(self):
         url = f"https://www.easistent.com/m/grades/"
         data = self.fetcher.send_request(url)
         if data is None:
@@ -86,6 +87,18 @@ class GradeFetcher:
         if len(data["items"]) == 0:
             print("No grades...")
             return None
-        subject_data = data["items"][0]
-        grade_id = data["items"][-1]["semesters"][-1]["grades"][-1]["id"]
-        return {"subject_id": subject_data["id"], "grade_id": grade_id}
+
+        grades = []
+
+        for subject_data in data["items"]:
+            for semester in subject_data["semesters"]:
+                for grade in semester["grades"]:
+                    
+                    grades.append({"grade_id": grade["id"], "date": grade["inserted_at"], "subject_id": subject_data["id"]})
+
+        grades.sort(
+            key=lambda g: datetime.fromisoformat(g["date"]),
+            reverse=True
+        )
+
+        return grades
