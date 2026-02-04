@@ -49,3 +49,9 @@ Since the app can only see the last grade reported by eAsistent unless you've be
 ### Q: Why are some subjects missing?
 
 At the moment, the app only checks for new grades for subjects you have during current week. This means some subjects may not appear initially but will be added when a new week comes.
+
+## Gallery
+
+![Dashboard](img/1.png)
+![Subjects](img/2.png)
+![Subject view](img/3.png)

@@ -2,6 +2,9 @@ FROM python:3-alpine
 
 WORKDIR /app
 
+RUN apk add --no-cache tzdata
+ENV TZ=Europe/Ljubljana
+
 COPY backend ./
 RUN mkdir static
 RUN mkdir data
