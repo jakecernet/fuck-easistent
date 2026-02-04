@@ -27,3 +27,24 @@ class Preferences:
             return os.environ[env_name]
 
         return default
+
+    @classmethod
+    def get_default(cls, name: str):
+        if name not in cls.map:
+            print(f"[ERROR] Preference not set: {name}")
+            return None
+
+        entry = cls.map[name]
+        
+        default = entry["default"]
+
+        return default
+
+    @classmethod
+    def get_int(cls, name: str):
+        val = cls.get(name)
+
+        try: 
+            return int(val)
+        except:
+            return cls.get_default(name)

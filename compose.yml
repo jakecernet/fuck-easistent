@@ -9,7 +9,7 @@ services:
       CHECK_INTERVAL_SECONDS: 60
       CHECK_FULL_INTERVAL_SECONDS: 3600
     volumes:
-      - db_data:/app/data
+      - fea_data:/app/data
     restart: unless-stopped
 
 volumes:

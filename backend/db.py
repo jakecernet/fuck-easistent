@@ -213,16 +213,13 @@ def insert_subject(user_id, subject: Subject, long_name: str):
 
 
 def insert_grade(user_id, grade: Grade):
-
     with connect() as db:
-
         res = db.execute(
             "SELECT subject_id FROM Subjects WHERE subject_id = ? AND user_id = ?",
             (grade.subject_id, user_id),
         )
 
         if res.fetchone() is None:
-
             ok = insert_subject(
                 user_id,
                 Subject(id=grade.subject_id, name=grade.short_subject),
@@ -230,7 +227,6 @@ def insert_grade(user_id, grade: Grade):
             )
 
             if not ok:
-
                 return False
 
         try:
@@ -248,13 +244,10 @@ def insert_grade(user_id, grade: Grade):
                     grade.type,
                 ),
             )
-
-            db.commit()
+            
             return True
-
         except Exception as e:
-            db.rollback()
-            print("Error: ", e)
+            print("[ERROR]", e)
 
     return False
 

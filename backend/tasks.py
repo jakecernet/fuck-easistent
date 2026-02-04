@@ -23,7 +23,7 @@ def check_for_new_grades_sync():
     global last_full_check_time
     print("[Checking for new grades]")
     # Do a full check every hour
-    should_full_check = int(time.time()) - last_full_check_time > Preferences.get(
+    should_full_check = int(time.time()) - last_full_check_time > Preferences.get_int(
         "check_interval_full"
     )
     if should_full_check:

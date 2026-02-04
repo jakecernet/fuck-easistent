@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
     scheduler.add_job(
         check_for_new_grades,
         trigger="interval",
-        seconds=Preferences.get("check_interval"),
+        seconds=Preferences.get_int("check_interval"),
         max_instances=1,
         coalesce=True,
         next_run_time=datetime.now(),
