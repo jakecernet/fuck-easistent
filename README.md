@@ -44,7 +44,7 @@ If you encounter any issues, please submit them on GitHub.
 
 ### Q: Why can't I see all my grades?
 
-Since the app can only see the last grade reported by eAsistent unless you've been using the app from the start of the school year it will at the start have only the last grade for each subject. However if you have an active eAsistent plus trial (which they occasionally offer) the app will in that case fetch all grades and then it will be up to date. Regardless, you can always see your real average grade directly from the app.
+Since the app can only see the last grade reported by eAsistent unless you've been using the app from the start of the school year it will at the start have only the last grade for each subject. However if you have an active eAsistent plus trial (which they occasionally offer) the app will in fetch all grades and then it will be up to date. Regardless, you can always see your real average grade directly from the app.
 
 ### Q: Why are some subjects missing?
 
