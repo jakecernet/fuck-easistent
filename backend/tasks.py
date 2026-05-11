@@ -84,11 +84,18 @@ def ensure_admin():
     print("Initialized Admin")
     if admin := db.get_user("admin"):
         if password_hash.verify(admin_password, admin["password"]):
-            return  # Password is already the same so no problem
-
-        db.change_user_password(admin["id"], hashed)
+            pass  # Password is already the same so no problem
+        else:
+            db.change_user_password(admin["id"], hashed)
     else:
         db.insert_user("admin", hashed)
+
+    # Ensure at least one invite code exists
+    from api.invites import generate_invite
+    invites = db.list_invites()
+    if not invites:
+        code = generate_invite()
+        print(f"Generated invite code: {code}")
 
 
 def init_preferences():
