@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { form, FormField, minLength, required, submit } from '@angular/forms/signals';
 import { Auth } from '../auth';
 
@@ -9,7 +10,7 @@ interface LoginData {
 
 @Component({
 	selector: 'app-login',
-	imports: [FormField],
+	imports: [FormField, RouterLink],
 	templateUrl: './login.html',
 	styleUrl: './login.css',
 })
