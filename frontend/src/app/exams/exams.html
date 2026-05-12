@@ -1,44 +1,45 @@
+<!DOCTYPE html>
 <div class="container fade-up">
-  <header class="page-head">
-    <h1>Ocenjevanja</h1>
-    <p class="muted">Prihajajoči in že zaključeni testi.</p>
-  </header>
+	<header class="page-head">
+		<h1>Ocenjevanja</h1>
+		<p class="muted">Prihajajoči in že zaključeni testi.</p>
+	</header>
 
-  @if (loading()) {
-    <div class="empty-state">Nalagam…</div>
-  } @else if (data(); as d) {
-    <section class="stack section">
-      <h2>Prihajajoči ({{ d.upcoming_exams.length }})</h2>
-      @if (d.upcoming_exams.length) {
-        <div class="grid grid-2">
-          @for (e of d.upcoming_exams; track $index) {
-            <div class="card exam">
-              <div class="exam-subject">{{ e.subject?.name || e.name || '—' }}</div>
-              <div class="muted">{{ e.date || e.exam_date }}</div>
-              <div>{{ e.type_name || e.type }}</div>
-            </div>
-          }
-        </div>
-      } @else {
-        <div class="empty-state card"><p>Brez napovedanih ocenjevanj.</p></div>
-      }
-    </section>
+	@if (loading()) {
+		<div class="empty-state">Nalagam…</div>
+	} @else if (data(); as d) {
+		<section class="stack section">
+			<h2>Prihajajoči ({{ d.upcoming_exams.length }})</h2>
+			@if (d.upcoming_exams.length) {
+				<div class="grid grid-2">
+					@for (e of d.upcoming_exams; track $index) {
+						<div class="card exam">
+							<div class="exam-subject">{{ e.subject?.name || e.name || '—' }}</div>
+							<div class="muted">{{ e.date || e.exam_date }}</div>
+							<div>{{ e.type_name || e.type }}</div>
+						</div>
+					}
+				</div>
+			} @else {
+				<div class="empty-state card"><p>Brez napovedanih ocenjevanj.</p></div>
+			}
+		</section>
 
-    <section class="stack section">
-      <h2>Zaključeni ({{ d.submitted_exams.length }})</h2>
-      @if (d.submitted_exams.length) {
-        <div class="grid grid-2">
-          @for (e of d.submitted_exams; track $index) {
-            <div class="card exam">
-              <div class="exam-subject">{{ e.subject?.name || e.name || '—' }}</div>
-              <div class="muted">{{ e.date || e.exam_date }}</div>
-              <div>{{ e.type_name || e.type }}</div>
-            </div>
-          }
-        </div>
-      } @else {
-        <div class="empty-state card"><p>Brez zaključenih ocenjevanj.</p></div>
-      }
-    </section>
-  }
+		<section class="stack section">
+			<h2>Zaključeni ({{ d.submitted_exams.length }})</h2>
+			@if (d.submitted_exams.length) {
+				<div class="grid grid-2">
+					@for (e of d.submitted_exams; track $index) {
+						<div class="card exam">
+							<div class="exam-subject">{{ e.subject?.name || e.name || '—' }}</div>
+							<div class="muted">{{ e.date || e.exam_date }}</div>
+							<div>{{ e.type_name || e.type }}</div>
+						</div>
+					}
+				</div>
+			} @else {
+				<div class="empty-state card"><p>Brez zaključenih ocenjevanj.</p></div>
+			}
+		</section>
+	}
 </div>

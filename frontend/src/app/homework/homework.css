@@ -1,11 +1,13 @@
-.page-head { margin-bottom: 1.5rem; }
+.page-head {
+	margin-bottom: 1.5rem;
+}
 
 .hw {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
 }
 
 .hw-subject {
-    font-weight: 700;
+	font-weight: 700;
 }

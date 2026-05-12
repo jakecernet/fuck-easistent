@@ -1,84 +1,86 @@
 .subject-card {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	min-width: 0;
 }
 
 .head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    min-width: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 1rem;
+	min-width: 0;
 }
 
 .head > div:first-child {
-    min-width: 0;
-    flex: 1 1 auto;
+	min-width: 0;
+	flex: 1 1 auto;
 }
 
 .short {
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	font-size: 1.05rem;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .full {
-    font-size: 0.82rem;
-    margin-top: 0.15rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	font-size: 0.82rem;
+	margin-top: 0.15rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .avg {
-    text-align: right;
-    flex: 0 0 auto;
+	text-align: right;
+	flex: 0 0 auto;
 }
 
 .avg-num {
-    display: block;
-    font-size: 1.5rem;
-    font-weight: 800;
-    line-height: 1;
+	display: block;
+	font-size: 1.5rem;
+	font-weight: 800;
+	line-height: 1;
 }
 
 .avg-label {
-    display: block;
-    font-size: 0.7rem;
-    margin-top: 0.2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+	display: block;
+	font-size: 0.7rem;
+	margin-top: 0.2rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
 }
 
 @media (max-width: 480px) {
-    .avg-label { display: none; }
+	.avg-label {
+		display: none;
+	}
 }
 
 .finals {
-    display: flex;
-    gap: 0.4rem;
-    flex-wrap: wrap;
+	display: flex;
+	gap: 0.4rem;
+	flex-wrap: wrap;
 }
 
 .values {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
 }
 
 .g {
-    display: inline-grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    border: 1px solid;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    background: var(--bg-elevated);
+	display: inline-grid;
+	place-items: center;
+	width: 30px;
+	height: 30px;
+	border: 1px solid;
+	border-radius: 6px;
+	font-weight: 700;
+	font-size: 0.95rem;
+	background: var(--bg-elevated);
 }

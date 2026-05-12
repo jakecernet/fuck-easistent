@@ -1,16 +1,17 @@
+<!doctype html>
 <div class="card grade-info">
-  <div class="head">
-    <div class="value-box" [style.color]="valueColor()" [style.border-color]="valueColor()">
-      {{ grade!.value }}
-    </div>
-    <div class="meta">
-      <div class="type">{{ grade!.type }}</div>
-      <div class="dim mono">{{ getDateFormatted() }}</div>
-    </div>
-    <span class="badge muted">Polletje {{ grade!.semester }}</span>
-  </div>
-  <div class="row teacher">
-    <span class="muted">Vnesel/a:</span>
-    <span>{{ grade!.entered_by || '—' }}</span>
-  </div>
+	<div class="head">
+		<div class="value-box" [style.color]="valueColor()" [style.border-color]="valueColor()">
+			{{ grade!.value }}
+		</div>
+		<div class="meta">
+			<div class="type">{{ grade!.type }}</div>
+			<div class="dim mono">{{ getDateFormatted() }}</div>
+		</div>
+		<span class="badge muted">Polletje {{ grade!.semester }}</span>
+	</div>
+	<div class="row teacher">
+		<span class="muted">Vnesel/a:</span>
+		<span>{{ grade!.entered_by || '—' }}</span>
+	</div>
 </div>

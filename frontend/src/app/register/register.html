@@ -1,58 +1,59 @@
+<!DOCTYPE html>
 <div class="auth-card fade-up">
-  <div class="brand-row">
-    <span class="brand-mark">f</span>
-    <span class="brand-text">Fuck eAsistent</span>
-  </div>
-  <h1>Registracija</h1>
-  <p class="muted">Ustvari nov račun.</p>
-  <form (submit)="onSubmit($event)" class="form">
-    <label>
-      <span class="label">Uporabniško ime</span>
-      <input id="username" type="text" [formField]="registerForm.username" />
-      @if (registerForm.username().invalid() && registerForm.username().touched()) {
-        <div class="field-error">
-          @for (error of registerForm.username().errors(); track error.kind) {
-            <span>{{ error.message }}</span>
-          }
-        </div>
-      }
-    </label>
-    <label>
-      <span class="label">Geslo</span>
-      <div class="password-wrap">
-        <input
-          id="password"
-          [type]="show ? 'text' : 'password'"
-          [formField]="registerForm.password"
-        />
-        <button
-          type="button"
-          class="ghost icon-btn"
-          tabindex="-1"
-          (click)="togglePassword()"
-          aria-label="Pokaži geslo"
-        >
-          <img src="eye.svg" alt="" />
-        </button>
-      </div>
-      @if (registerForm.password().invalid() && registerForm.password().touched()) {
-        <div class="field-error">
-          @for (error of registerForm.password().errors(); track error.kind) {
-            <span>{{ error.message }}</span>
-          }
-        </div>
-      }
-    </label>
-    <button type="submit" [disabled]="loggingIn()">
-      @if (loggingIn()) {
-        <img class="spin" src="refresh.svg" alt="" />
-      } @else {
-        Registriraj se
-      }
-    </button>
-    @if (error().length > 0) {
-      <p class="field-error">{{ error() }}</p>
-    }
-    <p class="muted center">Že imaš račun? <a href="/login">Prijavi se</a></p>
-  </form>
+	<div class="brand-row">
+		<span class="brand-mark">f</span>
+		<span class="brand-text">Fuck eAsistent</span>
+	</div>
+	<h1>Registracija</h1>
+	<p class="muted">Ustvari nov račun.</p>
+	<form (submit)="onSubmit($event)" class="form">
+		<label>
+			<span class="label">Uporabniško ime</span>
+			<input id="username" type="text" [formField]="registerForm.username" />
+			@if (registerForm.username().invalid() && registerForm.username().touched()) {
+				<div class="field-error">
+					@for (error of registerForm.username().errors(); track error.kind) {
+						<span>{{ error.message }}</span>
+					}
+				</div>
+			}
+		</label>
+		<label>
+			<span class="label">Geslo</span>
+			<div class="password-wrap">
+				<input
+					id="password"
+					[type]="show ? 'text' : 'password'"
+					[formField]="registerForm.password"
+				/>
+				<button
+					type="button"
+					class="ghost icon-btn"
+					tabindex="-1"
+					(click)="togglePassword()"
+					aria-label="Pokaži geslo"
+				>
+					<img src="eye.svg" alt="" />
+				</button>
+			</div>
+			@if (registerForm.password().invalid() && registerForm.password().touched()) {
+				<div class="field-error">
+					@for (error of registerForm.password().errors(); track error.kind) {
+						<span>{{ error.message }}</span>
+					}
+				</div>
+			}
+		</label>
+		<button type="submit" [disabled]="loggingIn()">
+			@if (loggingIn()) {
+				<img class="spin" src="refresh.svg" alt="" />
+			} @else {
+				Registriraj se
+			}
+		</button>
+		@if (error().length > 0) {
+			<p class="field-error">{{ error() }}</p>
+		}
+		<p class="muted center">Že imaš račun? <a href="/login">Prijavi se</a></p>
+	</form>
 </div>

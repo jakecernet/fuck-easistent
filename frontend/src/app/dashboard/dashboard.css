@@ -1,84 +1,88 @@
 .page-head {
-    margin-bottom: 1.5rem;
+	margin-bottom: 1.5rem;
 }
 
 .section {
-    margin-top: 2rem;
+	margin-top: 2rem;
 }
 
 .stat-grid .card.stat {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
 }
 
 .stat-label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
+	font-size: 0.85rem;
+	color: var(--text-muted);
 }
 
 .stat-value {
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: var(--text);
+	font-size: 2rem;
+	font-weight: 700;
+	letter-spacing: -0.03em;
+	color: var(--text);
 }
 
 .grade-row {
-    display: flex;
-    gap: 0.75rem;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-    scroll-snap-type: x mandatory;
+	display: flex;
+	gap: 0.75rem;
+	overflow-x: auto;
+	padding-bottom: 0.5rem;
+	scroll-snap-type: x mandatory;
 }
 
 .grade-chip {
-    flex: 0 0 auto;
-    min-width: 110px;
-    padding: 1rem 1.25rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--c, var(--primary));
-    border-radius: var(--radius-sm);
-    color: var(--text);
-    box-shadow: none;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-    scroll-snap-align: start;
-    cursor: pointer;
+	flex: 0 0 auto;
+	min-width: 110px;
+	padding: 1rem 1.25rem;
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-left: 3px solid var(--c, var(--primary));
+	border-radius: var(--radius-sm);
+	color: var(--text);
+	box-shadow: none;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.25rem;
+	scroll-snap-align: start;
+	cursor: pointer;
 }
 
 .grade-chip:hover {
-    border-color: var(--c, var(--primary));
-    background: var(--surface-2);
-    filter: none;
+	border-color: var(--c, var(--primary));
+	background: var(--surface-2);
+	filter: none;
 }
 
 .grade-num {
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: var(--c, var(--primary));
-    line-height: 1;
+	font-size: 1.75rem;
+	font-weight: 800;
+	color: var(--c, var(--primary));
+	line-height: 1;
 }
 
 .grade-sub {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    font-weight: 500;
+	font-size: 0.85rem;
+	color: var(--text-muted);
+	font-weight: 500;
 }
 
 .mini-stat {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.3rem;
 }
 
 .mini-stat strong {
-    font-size: 1.5rem;
-    font-weight: 700;
+	font-size: 1.5rem;
+	font-weight: 700;
 }
 
-.mini-stat.danger strong { color: var(--danger); }
-.mini-stat.warn strong { color: var(--warn); }
+.mini-stat.danger strong {
+	color: var(--danger);
+}
+.mini-stat.warn strong {
+	color: var(--warn);
+}

@@ -1,24 +1,26 @@
+<!DOCTYPE html>
 <div class="container fade-up">
-  <header class="page-head">
-    <h1>Ocene</h1>
-    <p class="muted">Klikni predmet za podroben pregled.</p>
-  </header>
+	<header class="page-head">
+		<h1>Ocene</h1>
+		<p class="muted">Klikni predmet za podroben pregled.</p>
+	</header>
 
-  <div class="grid grid-2">
-    @for (subj of gradesMap(); track subj.subject.id) {
-      <app-grade-item
-        [subject]="subj.subject.short_name"
-        [fullName]="subj.subject.name"
-        [grades]="subj.getRegularValues()"
-        [finalHalf]="subj.getFinalHalf()"
-        [finalYear]="subj.getFinalYear()"
-        [subject_id]="subj.subject.id"
-      ></app-grade-item>
-    } @empty {
-      <div class="empty-state card" style="grid-column: 1/-1">
-        <div class="icon">★</div>
-        <p>Še nimaš ocen. Če si oddal eAsistent prijavo, se bodo kmalu pojavile.</p>
-      </div>
-    }
-  </div>
+	<div class="grid grid-2">
+		@for (subj of gradesMap(); track subj.subject.id) {
+			<app-grade-item
+				[subject]="subj.subject.short_name"
+				[fullName]="subj.subject.name"
+				[grades]="subj.getRegularValues()"
+				[finalHalf]="subj.getFinalHalf()"
+				[finalYear]="subj.getFinalYear()"
+				[subject_id]="subj.subject.id"
+			>
+			</app-grade-item>
+		} @empty {
+			<div class="empty-state card" style="grid-column: 1/-1">
+				<div class="icon">★</div>
+				<p>Še nimaš ocen. Če si oddal eAsistent prijavo, se bodo kmalu pojavile.</p>
+			</div>
+		}
+	</div>
 </div>

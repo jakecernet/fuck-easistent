@@ -1,64 +1,84 @@
+<!doctype html>
 <div class="container fade-up">
-  <header class="page-head">
-    <h1>Urnik</h1>
-    <div class="nav-row">
-      <button class="ghost icon-btn" (click)="prevWeek()" aria-label="Prejšnji teden">‹</button>
-      <button class="ghost" (click)="thisWeek()" [disabled]="isCurrentWeek()">Današnji teden</button>
-      <button class="ghost icon-btn" (click)="nextWeek()" aria-label="Naslednji teden">›</button>
-      <span class="week-label muted mono">{{ weekLabel() }}</span>
-    </div>
-  </header>
+	<header class="page-head">
+		<h1>Urnik</h1>
+		<div class="nav-row">
+			<button class="ghost icon-btn" (click)="prevWeek()" aria-label="Prejšnji teden">‹</button>
+			<button class="ghost" (click)="thisWeek()" [disabled]="isCurrentWeek()">
+				Današnji teden
+			</button>
+			<button class="ghost icon-btn" (click)="nextWeek()" aria-label="Naslednji teden">›</button>
+			<span class="week-label muted mono">{{ weekLabel() }}</span>
+		</div>
+	</header>
 
-  @if (loading()) {
-    <div class="empty-state">Nalagam…</div>
-  } @else if (hasAnyEvents()) {
-    <nav class="day-tabs">
-      @for (day of days(); track day.date; let i = $index) {
-        <button class="day-tab" [class.active]="selectedDayIdx() === i" [class.today]="day.isToday" (click)="selectDay(i)">
-          <span class="t-short">{{ day.shortName }}</span>
-          <span class="t-date mono">{{ shortDate(day.date) }}</span>
-        </button>
-      }
-    </nav>
+	@if (loading()) {
+		<div class="empty-state">Nalagam…</div>
+	} @else if (hasAnyEvents()) {
+		<nav class="day-tabs">
+			@for (day of days(); track day.date; let i = $index) {
+				<button
+					class="day-tab"
+					[class.active]="selectedDayIdx() === i"
+					[class.today]="day.isToday"
+					(click)="selectDay(i)"
+				>
+					<span class="t-short">{{ day.shortName }}</span>
+					<span class="t-date mono">{{ shortDate(day.date) }}</span>
+				</button>
+			}
+		</nav>
 
-    <div class="week-grid" [style.--cols]="days().length">
-      @for (day of days(); track day.date; let i = $index) {
-        <div class="day" [class.today]="day.isToday" [class.mobile-hidden]="selectedDayIdx() !== i">
-          <header class="day-head">
-            <div class="weekday">{{ day.name }}</div>
-            <div class="muted mono">{{ shortDate(day.date) }}</div>
-          </header>
-          <div class="hours">
-            @for (ev of day.events; track $index) {
-              <div class="hour-block" [class.completed]="ev.completed" [class.now]="ev.isNow"
-                [class.split]="ev.variants.length > 1">
-                <div class="time-row mono">
-                  <span>{{ ev.from }} – {{ ev.to }}</span>
-                  @if (ev.isNow) { <span class="now-pill">ZDAJ</span> }
-                </div>
-                <div class="variants">
-                  @for (v of ev.variants; track $index) {
-                    <div class="variant" [style.--accent]="v.color || 'var(--primary)'">
-                      <div class="row-name">
-                        <span class="subj">{{ v.name }}</span>
-                        @if (v.group) { <span class="group-pill">{{ v.group }}</span> }
-                      </div>
-                      @if (v.teacher) { <div class="muted small">{{ v.teacher }}</div> }
-                      @if (v.classroom) { <div class="dim small">učilnica {{ v.classroom }}</div> }
-                    </div>
-                  }
-                </div>
-              </div>
-            } @empty {
-              <div class="empty-day muted small">prost dan</div>
-            }
-          </div>
-        </div>
-      }
-    </div>
-  } @else {
-    <div class="empty-state card">
-      <p>Ni urnika za ta teden.</p>
-    </div>
-  }
+		<div class="week-grid" [style.--cols]="days().length">
+			@for (day of days(); track day.date; let i = $index) {
+				<div class="day" [class.today]="day.isToday" [class.mobile-hidden]="selectedDayIdx() !== i">
+					<header class="day-head">
+						<div class="weekday">{{ day.name }}</div>
+						<div class="muted mono">{{ shortDate(day.date) }}</div>
+					</header>
+					<div class="hours">
+						@for (ev of day.events; track $index) {
+							<div
+								class="hour-block"
+								[class.completed]="ev.completed"
+								[class.now]="ev.isNow"
+								[class.split]="ev.variants.length > 1"
+							>
+								<div class="time-row mono">
+									<span>{{ ev.from }} – {{ ev.to }}</span>
+									@if (ev.isNow) {
+										<span class="now-pill">ZDAJ</span>
+									}
+								</div>
+								<div class="variants">
+									@for (v of ev.variants; track $index) {
+										<div class="variant" [style.--accent]="v.color || 'var(--primary)'">
+											<div class="row-name">
+												<span class="subj">{{ v.name }}</span>
+												@if (v.group) {
+													<span class="group-pill">{{ v.group }}</span>
+												}
+											</div>
+											@if (v.teacher) {
+												<div class="muted small">{{ v.teacher }}</div>
+											}
+											@if (v.classroom) {
+												<div class="dim small">učilnica {{ v.classroom }}</div>
+											}
+										</div>
+									}
+								</div>
+							</div>
+						} @empty {
+							<div class="empty-day muted small">prost dan</div>
+						}
+					</div>
+				</div>
+			}
+		</div>
+	} @else {
+		<div class="empty-state card">
+			<p>Ni urnika za ta teden.</p>
+		</div>
+	}
 </div>

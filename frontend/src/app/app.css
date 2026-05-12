@@ -124,6 +124,7 @@
 	padding: 0;
 	border-radius: 8px;
 	display: grid;
+	gap: 1px;
 	place-items: center;
 	cursor: pointer;
 	color: var(--text);
@@ -141,7 +142,7 @@
 	width: 16px;
 	height: 2px;
 	background: currentColor;
-	margin: 2px 0;
+	margin: 1px 0;
 }
 
 .backdrop {

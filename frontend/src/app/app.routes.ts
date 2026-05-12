@@ -13,15 +13,15 @@ import { Homework } from './homework/homework';
 import { Timetable } from './timetable/timetable';
 
 export const routes: Routes = [
-  { path: '', component: Dashboard, canActivate: [AuthGuard] },
-  { path: 'login', component: Login },
-  { path: 'register', component: Register },
-  { path: 'grades', component: Grades, canActivate: [AuthGuard] },
-  { path: 'grades/:subject', component: GradesForSubject, canActivate: [AuthGuard] },
-  { path: 'absences', component: Absences, canActivate: [AuthGuard] },
-  { path: 'exams', component: Exams, canActivate: [AuthGuard] },
-  { path: 'homework', component: Homework, canActivate: [AuthGuard] },
-  { path: 'timetable', component: Timetable, canActivate: [AuthGuard] },
-  { path: 'account', component: Account, canActivate: [AuthGuard] },
-  { path: 'logout', component: Logout, canActivate: [AuthGuard] },
+	{ path: '', component: Dashboard, canActivate: [AuthGuard] },
+	{ path: 'login', component: Login },
+	{ path: 'register', component: Register },
+	{ path: 'grades', component: Grades, canActivate: [AuthGuard] },
+	{ path: 'grades/:subject', component: GradesForSubject, canActivate: [AuthGuard] },
+	{ path: 'absences', component: Absences, canActivate: [AuthGuard] },
+	{ path: 'exams', component: Exams, canActivate: [AuthGuard] },
+	{ path: 'homework', component: Homework, canActivate: [AuthGuard] },
+	{ path: 'timetable', component: Timetable, canActivate: [AuthGuard] },
+	{ path: 'account', component: Account, canActivate: [AuthGuard] },
+	{ path: 'logout', component: Logout, canActivate: [AuthGuard] },
 ];

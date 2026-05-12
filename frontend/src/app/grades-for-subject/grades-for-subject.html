@@ -1,48 +1,49 @@
+<!doctype html>
 <div class="container fade-up">
-  @if (isLoading()) {
-    <div class="empty-state">Nalagam…</div>
-  } @else if (subject() == null) {
-    <div class="empty-state card">
-      <div class="icon">!</div>
-      <p>Predmet ne obstaja.</p>
-    </div>
-  } @else {
-    <header class="page-head">
-      <a routerLink="/grades" class="back muted">← nazaj</a>
-      <h1>{{ subject()!.short_name }}</h1>
-      <p class="muted">{{ subject()!.name }}</p>
-    </header>
+	@if (isLoading()) {
+		<div class="empty-state">Nalagam…</div>
+	} @else if (subject() == null) {
+		<div class="empty-state card">
+			<div class="icon">!</div>
+			<p>Predmet ne obstaja.</p>
+		</div>
+	} @else {
+		<header class="page-head">
+			<a routerLink="/grades" class="back muted">← nazaj</a>
+			<h1>{{ subject()!.short_name }}</h1>
+			<p class="muted">{{ subject()!.name }}</p>
+		</header>
 
-    <div class="grid grid-3 stats">
-      <div class="card stat">
-        <span class="muted">Povprečje (eAsistent)</span>
-        @if (averageGrade() < 0) {
-          <strong class="dim">…</strong>
-        } @else if (averageGrade() == 0) {
-          <strong class="dim">—</strong>
-        } @else {
-          <strong>{{ averageGrade() }}</strong>
-        }
-      </div>
-      <div class="card stat">
-        <span class="muted">Lokalno povprečje</span>
-        <strong>{{ localAverage() }}</strong>
-      </div>
-      <div class="card stat">
-        <span class="muted">Število ocen</span>
-        <strong>{{ grades().length }}</strong>
-      </div>
-    </div>
+		<div class="grid grid-3 stats">
+			<div class="card stat">
+				<span class="muted">Povprečje (eAsistent)</span>
+				@if (averageGrade() < 0) {
+					<strong class="dim">…</strong>
+				} @else if (averageGrade() == 0) {
+					<strong class="dim">—</strong>
+				} @else {
+					<strong>{{ averageGrade() }}</strong>
+				}
+			</div>
+			<div class="card stat">
+				<span class="muted">Lokalno povprečje</span>
+				<strong>{{ localAverage() }}</strong>
+			</div>
+			<div class="card stat">
+				<span class="muted">Število ocen</span>
+				<strong>{{ grades().length }}</strong>
+			</div>
+		</div>
 
-    <div class="grid grid-2 grades-list">
-      @for (grade of grades(); track grade.id) {
-        <app-grade-info [grade]="grade"></app-grade-info>
-      } @empty {
-        <div class="empty-state card" style="grid-column: 1/-1">
-          <div class="icon">★</div>
-          <p>Ni ocen.</p>
-        </div>
-      }
-    </div>
-  }
+		<div class="grid grid-2 grades-list">
+			@for (grade of grades(); track grade.id) {
+				<app-grade-info [grade]="grade"></app-grade-info>
+			} @empty {
+				<div class="empty-state card" style="grid-column: 1/-1">
+					<div class="icon">★</div>
+					<p>Ni ocen.</p>
+				</div>
+			}
+		</div>
+	}
 </div>

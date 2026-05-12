@@ -1,29 +1,30 @@
+<!DOCTYPE html>
 <div class="container fade-up">
-  <header class="page-head">
-    <h1>Domače naloge</h1>
-    <p class="muted">Naloge, ki jih moraš oddati.</p>
-  </header>
+	<header class="page-head">
+		<h1>Domače naloge</h1>
+		<p class="muted">Naloge, ki jih moraš oddati.</p>
+	</header>
 
-  @if (loading()) {
-    <div class="empty-state">Nalagam…</div>
-  } @else if (data()?.items?.length) {
-    <div class="grid grid-2">
-      @for (h of data()!.items; track $index) {
-        <div class="card hw">
-          <div class="row between">
-            <div class="hw-subject">{{ h.subject?.name || h.subject_name || '—' }}</div>
-            @if (h.deadline || h.due_date) {
-              <span class="badge">{{ h.deadline || h.due_date }}</span>
-            }
-          </div>
-          <p>{{ h.description || h.text || h.title }}</p>
-        </div>
-      }
-    </div>
-  } @else {
-    <div class="empty-state card">
-      <div class="icon">✎</div>
-      <p>Trenutno ni domačih nalog.</p>
-    </div>
-  }
+	@if (loading()) {
+		<div class="empty-state">Nalagam…</div>
+	} @else if (data()?.items?.length) {
+		<div class="grid grid-2">
+			@for (h of data()!.items; track $index) {
+				<div class="card hw">
+					<div class="row between">
+						<div class="hw-subject">{{ h.subject?.name || h.subject_name || '—' }}</div>
+						@if (h.deadline || h.due_date) {
+							<span class="badge">{{ h.deadline || h.due_date }}</span>
+						}
+					</div>
+					<p>{{ h.description || h.text || h.title }}</p>
+				</div>
+			}
+		</div>
+	} @else {
+		<div class="empty-state card">
+			<div class="icon">✎</div>
+			<p>Trenutno ni domačih nalog.</p>
+		</div>
+	}
 </div>

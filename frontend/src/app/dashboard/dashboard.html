@@ -1,77 +1,84 @@
+<!doctype html>
 <div class="container fade-up">
-  <header class="page-head">
-    <div>
-      <h1>Pozdravljen, {{ authService.getUsername() }}</h1>
-      <p class="muted">Zadnja sinhronizacija: {{ lastCheck() }}</p>
-    </div>
-  </header>
+	<header class="page-head">
+		<div>
+			<h1>Pozdravljen, {{ authService.getUsername() }}</h1>
+			<p class="muted">Zadnja sinhronizacija: {{ lastCheck() }}</p>
+		</div>
+	</header>
 
-  <section class="grid grid-4 stat-grid">
-    <div class="card stat">
-      <span class="stat-label">Povprečje</span>
-      <span class="stat-value">{{ stats()?.average ?? '—' }}</span>
-    </div>
-    <div class="card stat">
-      <span class="stat-label">Število ocen</span>
-      <span class="stat-value">{{ stats()?.grade_count ?? 0 }}</span>
-    </div>
-    <div class="card stat">
-      <span class="stat-label">Polletne zaključene</span>
-      <span class="stat-value">{{ stats()?.finals_half ?? 0 }}</span>
-    </div>
-    <div class="card stat">
-      <span class="stat-label">Letne zaključene</span>
-      <span class="stat-value">{{ stats()?.finals_year ?? 0 }}</span>
-    </div>
-  </section>
+	<section class="grid grid-4 stat-grid">
+		<div class="card stat">
+			<span class="stat-label">Povprečje</span>
+			<span class="stat-value">{{ stats()?.average ?? '—' }}</span>
+		</div>
+		<div class="card stat">
+			<span class="stat-label">Število ocen</span>
+			<span class="stat-value">{{ stats()?.grade_count ?? 0 }}</span>
+		</div>
+		<div class="card stat">
+			<span class="stat-label">Polletne zaključene</span>
+			<span class="stat-value">{{ stats()?.finals_half ?? 0 }}</span>
+		</div>
+		<div class="card stat">
+			<span class="stat-label">Letne zaključene</span>
+			<span class="stat-value">{{ stats()?.finals_year ?? 0 }}</span>
+		</div>
+	</section>
 
-  <section class="stack section">
-    <div class="row between">
-      <h2>Zadnje ocene</h2>
-      <a routerLink="/grades" class="muted">vse →</a>
-    </div>
-    @if (recentGrades().length) {
-      <div class="grade-row">
-        @for (g of recentGrades(); track g.grade_id) {
-          <button class="grade-chip" (click)="openSubject(g.subject_id)"
-            [style.--c]="gradeColor(g.value)">
-            <span class="grade-num">{{ g.value }}</span>
-            <span class="grade-sub">{{ g.subject }}</span>
-          </button>
-        }
-      </div>
-    } @else {
-      <div class="empty-state card">
-        <div class="icon">★</div>
-        <p>Še nimaš ocen. Počakaj na naslednjo sinhronizacijo ali dodaj eAsistent prijavo v <a routerLink="/account">Račun</a>.</p>
-      </div>
-    }
-  </section>
+	<section class="stack section">
+		<div class="row between">
+			<h2>Zadnje ocene</h2>
+			<a routerLink="/grades" class="muted">vse →</a>
+		</div>
+		@if (recentGrades().length) {
+			<div class="grade-row">
+				@for (g of recentGrades(); track g.grade_id) {
+					<button
+						class="grade-chip"
+						(click)="openSubject(g.subject_id)"
+						[style.--c]="gradeColor(g.value)"
+					>
+						<span class="grade-num">{{ g.value }}</span>
+						<span class="grade-sub">{{ g.subject }}</span>
+					</button>
+				}
+			</div>
+		} @else {
+			<div class="empty-state card">
+				<div class="icon">★</div>
+				<p>
+					Še nimaš ocen. Počakaj na naslednjo sinhronizacijo ali dodaj eAsistent prijavo v
+					<a routerLink="/account">račun</a>.
+				</p>
+			</div>
+		}
+	</section>
 
-  @if (absences(); as abs) {
-    <section class="stack section">
-      <div class="row between">
-        <h2>Odsotnosti</h2>
-        <a routerLink="/absences" class="muted">več →</a>
-      </div>
-      <div class="grid grid-4">
-        <div class="card mini-stat">
-          <span class="muted">Opravičene</span>
-          <strong>{{ abs.summary.excused_hours }}</strong>
-        </div>
-        <div class="card mini-stat danger">
-          <span class="muted">Neopravičene</span>
-          <strong>{{ abs.summary.unexcused_hours }}</strong>
-        </div>
-        <div class="card mini-stat warn">
-          <span class="muted">V postopku</span>
-          <strong>{{ abs.summary.pending_hours }}</strong>
-        </div>
-        <div class="card mini-stat">
-          <span class="muted">Neurejene</span>
-          <strong>{{ abs.summary.unmanaged_absences }}</strong>
-        </div>
-      </div>
-    </section>
-  }
+	@if (absences(); as abs) {
+		<section class="stack section">
+			<div class="row between">
+				<h2>Odsotnosti</h2>
+				<a routerLink="/absences" class="muted">več →</a>
+			</div>
+			<div class="grid grid-4">
+				<div class="card mini-stat">
+					<span class="muted">Opravičene</span>
+					<strong>{{ abs.summary.excused_hours }}</strong>
+				</div>
+				<div class="card mini-stat danger">
+					<span class="muted">Neopravičene</span>
+					<strong>{{ abs.summary.unexcused_hours }}</strong>
+				</div>
+				<div class="card mini-stat warn">
+					<span class="muted">V postopku</span>
+					<strong>{{ abs.summary.pending_hours }}</strong>
+				</div>
+				<div class="card mini-stat">
+					<span class="muted">Neurejene</span>
+					<strong>{{ abs.summary.unmanaged_absences }}</strong>
+				</div>
+			</div>
+		</section>
+	}
 </div>
