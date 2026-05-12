@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <div class="container fade-up">
   <header class="page-head">
     <h1>Odsotnosti</h1>
@@ -47,7 +48,11 @@
           </header>
           <ul class="hours">
             @for (h of a.hours; track $index) {
-              <li class="hour" [class.danger]="h.state === 'not_excused'" [class.warn]="h.state === 'pending'">
+              <li
+                class="hour"
+                [class.danger]="h.state === 'not_excused'"
+                [class.warn]="h.state === 'pending'"
+              >
                 <span class="mono hour-num">{{ h.value }}</span>
                 <span class="time mono">{{ h.from }}–{{ h.to }}</span>
                 <span class="subj">{{ h.class_name }}</span>
@@ -67,7 +72,9 @@
     </section>
   } @else {
     <div class="empty-state card">
-      <p class="muted">Ni podatkov. Preveri prijavne podatke v <a routerLink="/account">Računu</a>.</p>
+      <p class="muted">
+        Ni podatkov. Preveri prijavne podatke v <a routerLink="/account">Računu</a>.
+      </p>
     </div>
   }
 </div>

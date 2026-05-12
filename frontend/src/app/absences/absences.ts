@@ -33,19 +33,23 @@ export class Absences {
   }
 
   stateLabel(s: string): string {
-    return {
-      excused: 'opravičeno',
-      not_excused: 'neopravičeno',
-      pending: 'v postopku',
-      managed: 'urejeno',
-    }[s] || s;
+    return (
+      {
+        excused: 'opravičeno',
+        not_excused: 'neopravičeno',
+        pending: 'v postopku',
+        managed: 'urejeno',
+      }[s] || s
+    );
   }
 
   stateClass(s: string): string {
-    return {
-      excused: '',
-      not_excused: 'danger',
-      pending: 'warn',
-    }[s] || 'muted';
+    return (
+      {
+        excused: '',
+        not_excused: 'danger',
+        pending: 'warn',
+      }[s] || 'muted'
+    );
   }
 }

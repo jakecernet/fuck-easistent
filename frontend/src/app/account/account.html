@@ -1,3 +1,4 @@
+<!doctype html>
 <div class="container fade-up account-page">
   <header class="page-head">
     <h1>{{ this.authService.getUsername() }}</h1>
@@ -7,28 +8,45 @@
   <section class="card stack">
     <div>
       <h2>eAsistent prijava</h2>
-      <p class="muted">Za sledenje ocenam moraš dodati eAsistent prijavne podatke. Če si že dodal, jih nova vnos zamenja.</p>
+      <p class="muted">
+        Za spremljanje ocen moraš vnesti eAsistent prijavne podatke. Če si že dodal, jih nov vnos
+        zamenja.
+      </p>
     </div>
     <form class="form" (submit)="addLoginInfo($event)">
       <label>
         <span class="label">Uporabniško ime</span>
-        <input type="text" [(ngModel)]="username" [ngModelOptions]="{ standalone: true }" autocomplete="off" />
+        <input
+          type="text"
+          [(ngModel)]="username"
+          [ngModelOptions]="{ standalone: true }"
+          autocomplete="off"
+        />
       </label>
       <label>
         <span class="label">Geslo</span>
-        <input type="password" [(ngModel)]="password" [ngModelOptions]="{ standalone: true }" autocomplete="off" />
+        <input
+          type="password"
+          [(ngModel)]="password"
+          [ngModelOptions]="{ standalone: true }"
+          autocomplete="off"
+        />
       </label>
       <button type="submit">Shrani prijavo</button>
     </form>
     <div class="row">
       <button class="ghost" (click)="forceRefresh()" [disabled]="refreshing()">
-        @if (refreshing()) { Sinhroniziram… } @else { Sinhroniziraj zdaj }
+        @if (refreshing()) {
+          Sinhroniziram…
+        } @else {
+          Sinhroniziraj
+        }
       </button>
       <span class="muted small">Takoj sproži fetch novih ocen iz eAsistenta.</span>
     </div>
   </section>
 
-  @if (authService.getUsername() == "admin") {
+  @if (authService.getUsername() == 'admin') {
     <section class="card stack">
       <div class="row between">
         <h2>Invite kode</h2>
@@ -39,7 +57,9 @@
           @for (code of inviteCodes(); track $index) {
             <div class="invite-row">
               <code class="mono">{{ code }}</code>
-              <button class="ghost small" (click)="removeInviteCode(code)" aria-label="Izbriši">✕</button>
+              <button class="ghost small" (click)="removeInviteCode(code)" aria-label="Izbriši">
+                ✕
+              </button>
             </div>
           }
         </div>
@@ -56,7 +76,7 @@
     </div>
     <div class="row">
       <button class="ghost" (click)="clearData()">Pobriši ocene</button>
-      @if (authService.getUsername() != "admin") {
+      @if (authService.getUsername() != 'admin') {
         <button class="danger" (click)="deleteAccount()">Izbriši račun</button>
       }
     </div>
@@ -68,7 +88,7 @@
     <div class="card modal" (click)="$event.stopPropagation()">
       <h2>Izbris računa</h2>
       <p>Si prepričan, da želiš izbrisati svoj račun? Vsi tvoji podatki bodo izgubljeni.</p>
-      <div class="row" style="margin-top: 1rem;">
+      <div class="row" style="margin-top: 1rem">
         <button class="ghost" (click)="confirmAccountDeletion.set(false)">Prekliči</button>
         <button class="danger" (click)="actuallyDeleteAccount()">Izbriši</button>
       </div>
