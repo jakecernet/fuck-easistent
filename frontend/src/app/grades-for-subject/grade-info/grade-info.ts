@@ -11,10 +11,17 @@ export class GradeInfo {
   @Input() grade: Grade | null = null;
 
   getDateFormatted() {
-    let day = this.grade!.date.getDate();
-    let month = this.grade!.date.getMonth() + 1;
-    let year = this.grade!.date.getFullYear();
+    const d = this.grade!.date;
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()}`;
+  }
 
-    return `${day}-${month}-${year}`;
+  valueColor() {
+    const v = this.grade?.value ?? 0;
+    if (v >= 5) return 'var(--primary)';
+    if (v >= 4) return 'var(--info)';
+    if (v >= 3) return 'var(--accent)';
+    if (v >= 2) return 'var(--warn)';
+    return 'var(--danger)';
   }
 }

@@ -1,12 +1,55 @@
-<nav>
-  @if (authService.isLoggedIn()) {
-    <a href="/">Dashboard</a>
-    <a href="/grades">Grades</a>
-    <a href="/account">Account</a>
-    <a href="/logout">Logout</a>
-  } @else {
-    <a href="/login">Log In</a>
-    <a href="/register">Register</a>
-  }
-</nav>
-<router-outlet />
+@if (authService.isLoggedIn()) {
+  <div class="layout" [class.mobile-open]="mobileOpen()">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">f</span>
+        <span class="brand-text">fea</span>
+      </div>
+      <nav class="nav">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeMobile()">
+          <span class="ico">▦</span><span>Dashboard</span>
+        </a>
+        <a routerLink="/grades" routerLinkActive="active" (click)="closeMobile()">
+          <span class="ico">★</span><span>Ocene</span>
+        </a>
+        <a routerLink="/timetable" routerLinkActive="active" (click)="closeMobile()">
+          <span class="ico">⌗</span><span>Urnik</span>
+        </a>
+        <a routerLink="/absences" routerLinkActive="active" (click)="closeMobile()">
+          <span class="ico">✕</span><span>Odsotnosti</span>
+        </a>
+        <a routerLink="/exams" routerLinkActive="active" (click)="closeMobile()">
+          <span class="ico">!</span><span>Ocenjevanja</span>
+        </a>
+        <a routerLink="/homework" routerLinkActive="active" (click)="closeMobile()">
+          <span class="ico">✎</span><span>Naloge</span>
+        </a>
+      </nav>
+      <div class="nav-footer">
+        <a routerLink="/account" routerLinkActive="active" (click)="closeMobile()">
+          <span class="ico">◉</span><span>Račun</span>
+        </a>
+        <a routerLink="/logout" (click)="closeMobile()">
+          <span class="ico">⎋</span><span>Odjava</span>
+        </a>
+      </div>
+    </aside>
+    <div class="topbar">
+      <button class="hamburger" (click)="toggleMobile()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="brand-mobile">
+        <span class="brand-mark">f</span>
+        <span>fea</span>
+      </div>
+    </div>
+    <div class="backdrop" (click)="closeMobile()"></div>
+    <main class="content">
+      <router-outlet />
+    </main>
+  </div>
+} @else {
+  <div class="auth-shell">
+    <router-outlet />
+  </div>
+}

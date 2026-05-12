@@ -1,0 +1,14 @@
+.page-head { margin-bottom: 1.5rem; }
+.section { margin-top: 2rem; }
+.section h2 { margin-bottom: 0.75rem; }
+
+.exam {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.exam-subject {
+    font-weight: 700;
+    font-size: 1.05rem;
+}

@@ -1,13 +1,13 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Grade, Subject, Grades as GradesService } from '../services/grades';
 import { GradeInfo } from './grade-info/grade-info';
 import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-grades-for-subject',
-  imports: [GradeInfo],
+  imports: [GradeInfo, RouterLink],
   templateUrl: './grades-for-subject.html',
   styleUrl: './grades-for-subject.css',
 })

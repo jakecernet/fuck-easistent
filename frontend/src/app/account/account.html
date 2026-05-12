@@ -1,65 +1,77 @@
-<main>
-  <h2>{{ this.authService.getUsername() }}</h2>
+<div class="container fade-up account-page">
+  <header class="page-head">
+    <h1>{{ this.authService.getUsername() }}</h1>
+    <p class="muted">Upravljaj račun in eAsistent prijavo.</p>
+  </header>
 
-  <h3>eAsistent login info:</h3>
-  <p id="info">
-    If you want to track your grades you need to add your login info. If you have already added an
-    login adding a new one will replace it.
-  </p>
-
-  <form>
-    <label for="">Username</label>
-
-    <input type="text" [(ngModel)]="username" [ngModelOptions]="{ standalone: true }" />
-
-    <label for="">Password</label>
-
-    <input type="text" [(ngModel)]="password" [ngModelOptions]="{ standalone: true }" />
-    <br />
-    <button (click)="addLoginInfo($event)">Add eAsistent Login</button>
-  </form>
-
-  @if (this.authService.getUsername() == "admin") {
-  <br />
-  <br />
-  <br />
-  <h3>Invite codes</h3>
-  <button (click)="generateInviteCode()">Generate new Invite code</button>
-  <br />
-  <div class="inviteCodes">
-    @for (code of inviteCodes(); track $index) {
-
-    <div class="inviteCode">
-      <span>{{ code }}</span><button class="delete" (click)="removeInviteCode(code)">x</button>
+  <section class="card stack">
+    <div>
+      <h2>eAsistent prijava</h2>
+      <p class="muted">Za sledenje ocenam moraš dodati eAsistent prijavne podatke. Če si že dodal, jih nova vnos zamenja.</p>
     </div>
-    }@empty {
-    <p>No invite codes</p>
-    }
-  </div>
+    <form class="form" (submit)="addLoginInfo($event)">
+      <label>
+        <span class="label">Uporabniško ime</span>
+        <input type="text" [(ngModel)]="username" [ngModelOptions]="{ standalone: true }" autocomplete="off" />
+      </label>
+      <label>
+        <span class="label">Geslo</span>
+        <input type="password" [(ngModel)]="password" [ngModelOptions]="{ standalone: true }" autocomplete="off" />
+      </label>
+      <button type="submit">Shrani prijavo</button>
+    </form>
+    <div class="row">
+      <button class="ghost" (click)="forceRefresh()" [disabled]="refreshing()">
+        @if (refreshing()) { Sinhroniziram… } @else { Sinhroniziraj zdaj }
+      </button>
+      <span class="muted small">Takoj sproži fetch novih ocen iz eAsistenta.</span>
+    </div>
+  </section>
 
+  @if (authService.getUsername() == "admin") {
+    <section class="card stack">
+      <div class="row between">
+        <h2>Invite kode</h2>
+        <button class="ghost" (click)="generateInviteCode()">+ Nova koda</button>
+      </div>
+      @if (inviteCodes().length) {
+        <div class="invite-list">
+          @for (code of inviteCodes(); track $index) {
+            <div class="invite-row">
+              <code class="mono">{{ code }}</code>
+              <button class="ghost small" (click)="removeInviteCode(code)" aria-label="Izbriši">✕</button>
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="muted">Ni aktivnih invite kod.</p>
+      }
+    </section>
   }
-  <br />
-  <button class="deleteAccount" (click)="clearData()">Clear Data</button>
 
-  @if (authService.getUsername() != "admin") {
-  <button class="deleteAccount" (click)="deleteAccount()">Delete Account</button>
-  }
-</main>
+  <section class="card stack danger-zone">
+    <div>
+      <h2>Nevarna cona</h2>
+      <p class="muted">Te akcije so nepreklicne.</p>
+    </div>
+    <div class="row">
+      <button class="ghost" (click)="clearData()">Pobriši ocene</button>
+      @if (authService.getUsername() != "admin") {
+        <button class="danger" (click)="deleteAccount()">Izbriši račun</button>
+      }
+    </div>
+  </section>
+</div>
 
 @if (confirmAccountDeletion()) {
-
-<div class="modalBackground">
-  <div class="container">
-    <h2>Delete account</h2>
-    <p>
-      Are you sure you want to delete your account.<br />
-      All your data will be lost!
-    </p>
-    <br />
-    <div class="controls">
-      <button (click)="confirmAccountDeletion.set(false)">Cancel</button>
-      <button (click)="actuallyDeleteAccount()" class="deleteAccount">Delete Account</button>
+  <div class="modal-backdrop" (click)="confirmAccountDeletion.set(false)">
+    <div class="card modal" (click)="$event.stopPropagation()">
+      <h2>Izbris računa</h2>
+      <p>Si prepričan, da želiš izbrisati svoj račun? Vsi tvoji podatki bodo izgubljeni.</p>
+      <div class="row" style="margin-top: 1rem;">
+        <button class="ghost" (click)="confirmAccountDeletion.set(false)">Prekliči</button>
+        <button class="danger" (click)="actuallyDeleteAccount()">Izbriši</button>
+      </div>
     </div>
   </div>
-</div>
 }

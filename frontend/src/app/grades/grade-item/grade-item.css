@@ -1,51 +1,84 @@
-.grade {
+.subject-card {
     display: flex;
-    width: 50em;
-    max-width: 100svw;
-    background-color: rgb(27, 137, 255);
-    padding: 25px;
-    align-items: center;
-    justify-content: center;
-    justify-content: space-between;
-    border-radius: 8px;
-    cursor: pointer;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
 }
 
-.subj {
-    font-weight: 800;
-    font-size: 20px;
-    min-width: 70px;
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    min-width: 0;
+}
 
+.head > div:first-child {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.short {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.full {
+    font-size: 0.82rem;
+    margin-top: 0.15rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.avg {
+    text-align: right;
+    flex: 0 0 auto;
+}
+
+.avg-num {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.avg-label {
+    display: block;
+    font-size: 0.7rem;
+    margin-top: 0.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+@media (max-width: 480px) {
+    .avg-label { display: none; }
+}
+
+.finals {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
 }
 
 .values {
     display: flex;
-    gap: 6px;
+    flex-wrap: wrap;
+    gap: 0.4rem;
 }
 
-.avg {
-    font-weight: 600;
-}
-
-.gradeValue {
-    font-weight: 600;
-    font-size: 18px;
-}
-
-
-@media (max-width: 1000px) {
-    .grade {
-        width: calc(100svw - 160px);
-        margin: 0 20px;
-    }
-}
-
-@media (max-width: 650px) {
-    .grade {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        gap: 20px
-    }
+.g {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    background: var(--bg-elevated);
 }

@@ -121,6 +121,21 @@ def clear_data(user_id):
             return False
 
 
+def clear_data_keep_login(user_id):
+    with connect() as db:
+        try:
+            db.execute("DELETE FROM Grades WHERE user_id = ?", (user_id,))
+            db.execute("DELETE FROM Subjects WHERE user_id = ?", (user_id,))
+            db.execute(
+                "UPDATE Logins SET last_grade_id = NULL, ses = NULL WHERE user_id = ?",
+                (user_id,),
+            )
+            return True
+        except Exception as e:
+            print("[ERROR]", e)
+            return False
+
+
 def set_last_check_time(last_check_time: int):
     with connect() as db:
         db.execute("UPDATE ServerInfo SET last_check = ? WHERE id = 1", (last_check_time,))

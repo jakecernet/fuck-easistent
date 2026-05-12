@@ -13,16 +13,26 @@ class SubjectGrade {
     this.grades = grades;
   }
 
-  getAverage() {
-    let sum: number = 0;
-    this.grades.forEach((g) => {
-      sum += g.value;
-    });
-    return (sum / this.grades.length).toFixed(2);
+  private isFinal(g: Grade) {
+    return (g.type || '').toLowerCase().startsWith('zaklju');
   }
 
-  getGradeValues(): number[] {
-    return this.grades.map((x) => x.value);
+  getRegular(): Grade[] {
+    return this.grades.filter((g) => !this.isFinal(g));
+  }
+
+  getRegularValues(): number[] {
+    return this.getRegular().map((g) => g.value);
+  }
+
+  getFinalHalf(): number | null {
+    const f = this.grades.find((g) => g.type === 'Zaključena polletna');
+    return f ? f.value : null;
+  }
+
+  getFinalYear(): number | null {
+    const f = this.grades.find((g) => g.type === 'Zaključena letna');
+    return f ? f.value : null;
   }
 }
 
@@ -36,21 +46,13 @@ export class Grades {
   private gradeService = inject(GradesService);
   authService = inject(Auth);
   gradesMap = signal<SubjectGrade[]>([]);
-  _gradesMap: SubjectGrade[] = [];
 
   constructor() {
-    console.log('loading');
     this.gradeService.getSubjects().subscribe((subjects) => {
-      // Create an array of observables to get grades for each subject
-      const gradesObservables = subjects.map((subj) =>
-        this.gradeService.getGrades(subj.id).pipe(map((grades) => new SubjectGrade(subj, grades)))
+      const obs = subjects.map((subj) =>
+        this.gradeService.getGrades(subj.id).pipe(map((grades) => new SubjectGrade(subj, grades))),
       );
-
-      // Wait until all observables complete
-      forkJoin(gradesObservables).subscribe((subjectGrades) => {
-        this.gradesMap.set(subjectGrades);
-        console.log(subjectGrades);
-      });
+      forkJoin(obs).subscribe((res) => this.gradesMap.set(res));
     });
   }
 }

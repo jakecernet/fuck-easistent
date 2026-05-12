@@ -1,124 +1,76 @@
-main {
+.account-page {
     display: flex;
-    align-items: center;
-    
     flex-direction: column;
-    min-height: calc(100svh - 80px);
-}
-h2 {
-    font-size: 56px;
+    gap: 1.5rem;
+    max-width: 720px;
 }
 
-form  {
+.page-head { margin-bottom: 0.5rem; }
+
+.form {
     display: flex;
-    align-items: center;
     flex-direction: column;
+    gap: 1rem;
 }
 
-form > label {
-    margin-right: auto;
-    left: 0;
+.form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
 }
 
-
-.inviteCode {
-    background-color: var(--secondary);
-    height: 9em;
-    width: 9em;
-    font-size: 20px;
-    border-radius: 8px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
+.label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
 }
 
-.inviteCode > span {
-    font-weight: 800;
-}
-.inviteCodes {
+.invite-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    
+    gap: 0.5rem;
 }
 
-
-.inviteCode {
-    position: relative;
-}
-
-.inviteCode > .delete {
-    height: 32px;
-    width: 32px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 10px;
-
-}
-
-#info {
-    width: 50%;
-    text-align: justify;
-}
-
-.deleteAccount {
-    background-color: var(--error);
-    border-color: rgb(128, 0, 0);
-    color: white;
-}
-
-.modalBackground {
-    top: 0;
-    left: 0;
-    position: fixed;
-    height: 100svh;
-    width: 100svw;
-    background-color: rgba(8, 0, 0, 0.32);
+.invite-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    animation: blurAnimation 300ms forwards;
-}
-
-@keyframes blurAnimation {
-    0% {
-        backdrop-filter: blur(0px);
-    }
-    100% {
-        backdrop-filter: blur(10px);
-    }
-}
-.container {
-    background-color: var(--background);
-    padding: 20px;
+    gap: 0.5rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
     border-radius: 8px;
-    border: 3px solid var(--error);
-    opacity: 0.0;
-    animation: opacityAnimation 500ms forwards
-}
-@keyframes opacityAnimation {
-    0% {
-        opacity: 0.0;
-    }
-    30% {
-        opacity: 0.60;
-    }
-    100% {
-        opacity: 1;
-    }
+    padding: 0.5rem 0.5rem 0.5rem 0.85rem;
 }
 
-.modalBackground  h2 {
-    text-align: center;
+.invite-row code {
+    font-size: 0.95rem;
+    color: var(--primary);
+    letter-spacing: 0.1em;
 }
-.modalBackground  p {
-    text-align: center;
+
+button.small {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: grid;
+    place-items: center;
 }
-.controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+
+.danger-zone {
+    border-color: rgba(248,113,113,0.2);
+}
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    display: grid;
+    place-items: center;
+    z-index: 100;
+    animation: fade-up 0.2s ease-out;
+}
+
+.modal {
+    max-width: 420px;
+    width: calc(100% - 2rem);
+    box-shadow: var(--shadow-lg);
 }

@@ -1,0 +1,73 @@
+<div class="container fade-up">
+  <header class="page-head">
+    <h1>Odsotnosti</h1>
+    <p class="muted">Pregled vseh odsotnosti.</p>
+  </header>
+
+  @if (loading()) {
+    <div class="empty-state">Nalagam…</div>
+  } @else if (data(); as d) {
+    <section class="grid grid-4 summary">
+      <div class="card stat">
+        <span class="muted">Opravičene ure</span>
+        <strong>{{ d.summary.excused_hours }}</strong>
+      </div>
+      <div class="card stat danger">
+        <span class="muted">Neopravičene</span>
+        <strong>{{ d.summary.unexcused_hours }}</strong>
+      </div>
+      <div class="card stat warn">
+        <span class="muted">V postopku</span>
+        <strong>{{ d.summary.pending_hours }}</strong>
+      </div>
+      <div class="card stat">
+        <span class="muted">Neurejene</span>
+        <strong>{{ d.summary.unmanaged_absences }}</strong>
+      </div>
+    </section>
+
+    <section class="stack section">
+      <h2>Po dnevih ({{ d.items.length }})</h2>
+      @for (a of d.items; track a.id) {
+        <article class="card absence-day">
+          <header class="row between">
+            <div>
+              <div class="date">{{ formatDate(a.date) }}</div>
+              <div class="muted small">{{ weekday(a.date) }}</div>
+            </div>
+            <div class="row">
+              <span class="badge muted">{{ a.missing_count }} ur</span>
+              @if (a.excused_count) {
+                <span class="badge">{{ a.excused_count }} opravičenih</span>
+              }
+              @if (a.not_excused_count) {
+                <span class="badge danger">{{ a.not_excused_count }} neopravičenih</span>
+              }
+            </div>
+          </header>
+          <ul class="hours">
+            @for (h of a.hours; track $index) {
+              <li class="hour" [class.danger]="h.state === 'not_excused'" [class.warn]="h.state === 'pending'">
+                <span class="mono hour-num">{{ h.value }}</span>
+                <span class="time mono">{{ h.from }}–{{ h.to }}</span>
+                <span class="subj">{{ h.class_name }}</span>
+                <span class="badge" [ngClass]="stateClass(h.state)">{{ stateLabel(h.state) }}</span>
+              </li>
+            }
+          </ul>
+          @if (a.excuse_description) {
+            <div class="excuse muted small">{{ a.excuse_description }}</div>
+          }
+        </article>
+      } @empty {
+        <div class="empty-state card">
+          <p>Brez odsotnosti.</p>
+        </div>
+      }
+    </section>
+  } @else {
+    <div class="empty-state card">
+      <p class="muted">Ni podatkov. Preveri prijavne podatke v <a routerLink="/account">Računu</a>.</p>
+    </div>
+  }
+</div>

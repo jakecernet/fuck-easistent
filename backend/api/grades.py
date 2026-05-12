@@ -13,6 +13,14 @@ router = APIRouter()
 cache = TTLCache(maxsize=1024, ttl=60 * 60)
 
 
+def clear_user_cache(user_id: int):
+    uid = str(user_id)
+    for k in list(cache.keys()):
+        # keys are "{subject_id}_{user.id}"
+        if k.endswith("_" + uid):
+            cache.pop(k, None)
+
+
 class GradeModel(BaseModel):
     id: int
     value: int
@@ -113,7 +121,7 @@ def get_average_grade(
             {"success": False, "message": "No login added yet"}, status_code=400
         )
     ses = login["ses"]
-    if login["ses"] is None or verify_session(login["ses"]):
+    if ses is None or not verify_session(ses):
         ses = get_session_token(login["username"], login["password"])
         db.set_session(user.id, ses)
 

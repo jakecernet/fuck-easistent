@@ -1,12 +1,13 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Auth } from '../auth';
-import { Grades, Grade, SummarizedGrade } from '../services/grades';
+import { Grades, SummarizedGrade } from '../services/grades';
 import { ServerInfo, ServerInfoData } from '../services/server-info';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { Extra, Stats, AbsencesData } from '../services/extra';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
@@ -14,95 +15,47 @@ export class Dashboard {
   authService = inject(Auth);
   gradesService = inject(Grades);
   infoService = inject(ServerInfo);
+  extraService = inject(Extra);
   router = inject(Router);
 
   grades = signal<SummarizedGrade[]>([]);
   info = signal<ServerInfoData | null>(null);
+  stats = signal<Stats | null>(null);
+  absences = signal<AbsencesData | null>(null);
+
+  recentGrades = computed(() => this.grades().slice(0, 10));
 
   ngOnInit() {
-    this.gradesService.getSummarizedGrades().subscribe((gradesRes) => {
-      this.grades.set(gradesRes);
-    });
-    this.infoService.loadInfoData().subscribe((data) => {
-      this.info.set(data);
-    });
+    this.gradesService.getSummarizedGrades().subscribe((g) => this.grades.set(g));
+    this.infoService.loadInfoData().subscribe((d) => this.info.set(d));
+    this.extraService.stats().subscribe((s) => this.stats.set(s));
+    this.extraService.absences().subscribe((a) => this.absences.set(a));
   }
 
-  getLastCheckTimeFormatted() {
-    if (!this.info()) {
-      return 'Fetching';
-    }
-
-    if (typeof this.info()!.last_check == 'string') {
-      return 'Never';
-    }
-    return this.getTimeFormatted(this.info()?.last_check!);
+  lastCheck(): string {
+    const info = this.info();
+    if (!info) return '…';
+    if (typeof info.last_check === 'string' || info.last_check == null) return 'nikoli';
+    return this.timeAgo(info.last_check);
   }
 
-  getLastFullCheckTimeFormatted() {
-    if (!this.info()) {
-      return 'Fetching';
-    }
-
-    if (typeof this.info()!.last_full_check == 'string') {
-      return 'Never';
-    }
-    console.log(typeof this.info()!.last_full_check);
-
-    return this.getTimeFormatted(this.info()?.last_full_check!);
+  timeAgo(epochSeconds: number): string {
+    const diff = Math.floor(Date.now() / 1000 - epochSeconds);
+    if (diff < 60) return 'pravkar';
+    if (diff < 3600) return `pred ${Math.floor(diff / 60)} min`;
+    if (diff < 86400) return `pred ${Math.floor(diff / 3600)} h`;
+    return `pred ${Math.floor(diff / 86400)} dni`;
   }
 
-  getTimeFormatted(epochSeconds: number) {
-    const d = new Date(epochSeconds * 1000);
-
-    const pad = (n: any) => n.toString().padStart(2, '0');
-
-    const hh = pad(d.getHours());
-    const mm = pad(d.getMinutes());
-    const ss = pad(d.getSeconds());
-
-    const dd = pad(d.getDate());
-    const MM = pad(d.getMonth() + 1);
-    const yyyy = d.getFullYear();
-
-    return `${hh}:${mm}:${ss} ${dd}-${MM}-${yyyy}`;
+  gradeColor(value: number): string {
+    if (value >= 5) return 'var(--primary)';
+    if (value >= 4) return 'var(--info)';
+    if (value >= 3) return 'var(--accent)';
+    if (value >= 2) return 'var(--warn)';
+    return 'var(--danger)';
   }
 
-  stringToSaturatedColor(str: string): string {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) * 3 + ((hash << 5) - hash);
-      hash |= 0;
-      hash += 123123;
-      hash << 2;
-      hash * 23012;
-    }
-
-    const hue = Math.abs(hash) % 360;
-
-    const saturation = 60; // High saturation
-    const lightness = 40; // Medium lightness
-
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  openSubject(id: number) {
+    this.router.navigate(['grades', id]);
   }
-
-  gradeAverage(): string {
-    if (this.grades().length == 0) {
-      return "None"
-    }
-
-    let sum = 0;
-
-    this.grades().forEach((el) => {
-      sum += el.value;
-    });
-
-
-    return (sum / this.grades().length).toFixed(2);
-  }
-
-  openSubjectPage(subject_id: number) {
-    this.router.navigate(["grades", subject_id])
-  }
-
 }

@@ -1,14 +1,31 @@
-<div
-  [style.background-color]="stringToSaturatedColor(subject)"
-  class="grade"
-  (click)="openSubjectRoute()"
->
-  <span class="subj">{{ subject }}</span>
-  <div class="values">
-    @for (g of grades; track $index) {
-    <span class="gradeValue">{{ g }}</span>
-    } @empty { The are no grades yet... }
+<div class="card interactive subject-card" (click)="openSubjectRoute()">
+  <div class="head">
+    <div>
+      <div class="short">{{ subject }}</div>
+      @if (fullName) { <div class="full muted">{{ fullName }}</div> }
+    </div>
+    <div class="avg" [style.color]="avgColor()">
+      <span class="avg-num">{{ getAvg() }}</span>
+      <span class="avg-label muted">povprečje</span>
+    </div>
   </div>
 
-  <span class="avg" title="Average grade calculated from the local data">{{ getAvg() }}</span>
+  @if (finalHalf !== null || finalYear !== null) {
+    <div class="finals">
+      @if (finalHalf !== null) {
+        <span class="badge info">Polletno: {{ finalHalf }}</span>
+      }
+      @if (finalYear !== null) {
+        <span class="badge">Letno: {{ finalYear }}</span>
+      }
+    </div>
+  }
+
+  <div class="values">
+    @for (g of grades; track $index) {
+      <span class="g" [style.color]="gradeColor(g)" [style.border-color]="gradeColor(g)">{{ g }}</span>
+    } @empty {
+      <span class="muted">ni ocen</span>
+    }
+  </div>
 </div>

@@ -58,8 +58,24 @@ async def delete_account(user: Annotated[User, Depends(get_current_user)]):
 def insert_grade(
     login: EasistentLoginModel, user: Annotated[User, Depends(get_current_user)]
 ):
+    prev = db.get_session(user.id)
+    different_account = prev is None or prev.get("username") != login.username
+
+    if different_account:
+        db.clear_data_keep_login(user.id)
+        from api.extra import clear_user_cache as clear_extra_cache
+        from api.grades import clear_user_cache as clear_grades_cache
+        clear_extra_cache(user.id)
+        clear_grades_cache(user.id)
+
     res = db.insert_login_info(user.id, login.username, login.password)
-    return {"success": res}
+
+    if res:
+        import threading
+        from tasks import check_for_new_grades_sync
+        threading.Thread(target=check_for_new_grades_sync, daemon=True).start()
+
+    return {"success": res, "cleared": different_account}
 
 
 @router.post("/login")

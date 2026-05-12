@@ -11,35 +11,34 @@ export class GradeItem {
   private router = inject(Router);
 
   @Input() subject: string = '';
+  @Input() fullName: string = '';
   @Input() grades: number[] = [];
+  @Input() finalHalf: number | null = null;
+  @Input() finalYear: number | null = null;
   @Input() subject_id: number = 0;
 
-  stringToSaturatedColor(str: string): string {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) * 3 + ((hash << 5) - hash);
-      hash |= 0;
-      hash += 123123;
-      hash << 2;
-      hash * 23012;
-    }
-
-    const hue = Math.abs(hash) % 360;
-
-    const saturation = 60; // High saturation
-    const lightness = 40; // Medium lightness
-
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-  }
   getAvg() {
-    let sum = 0;
-    this.grades.forEach((x) => {
-      sum += x;
-    });
-    if (this.grades.length == 0) {
-      return (0.0).toFixed(2);
-    }
+    if (this.grades.length === 0) return '—';
+    const sum = this.grades.reduce((a, b) => a + b, 0);
     return (sum / this.grades.length).toFixed(2);
+  }
+
+  avgColor(): string {
+    const n = parseFloat(this.getAvg());
+    if (isNaN(n)) return 'var(--text-muted)';
+    if (n >= 4.5) return 'var(--primary)';
+    if (n >= 3.5) return 'var(--info)';
+    if (n >= 2.5) return 'var(--accent)';
+    if (n >= 1.5) return 'var(--warn)';
+    return 'var(--danger)';
+  }
+
+  gradeColor(g: number): string {
+    if (g >= 5) return 'var(--primary)';
+    if (g >= 4) return 'var(--info)';
+    if (g >= 3) return 'var(--accent)';
+    if (g >= 2) return 'var(--warn)';
+    return 'var(--danger)';
   }
 
   openSubjectRoute() {

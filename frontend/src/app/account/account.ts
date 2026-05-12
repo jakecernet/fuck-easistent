@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Auth } from '../auth';
 import { Invites } from '../services/invites';
 import { Grades } from '../services/grades';
+import { Extra } from '../services/extra';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -14,7 +15,9 @@ export class Account {
   authService = inject(Auth);
   inviteService = inject(Invites);
   gradeService = inject(Grades);
+  extraService = inject(Extra);
   inviteCodes = signal<string[]>([]);
+  refreshing = signal(false);
 
   confirmAccountDeletion = signal(false);
 
@@ -43,6 +46,13 @@ export class Account {
     console.log(`Removing: ${code}`);
     this.inviteService.removeInvite(code).subscribe((_) => {
       this.loadInviteCodes();
+    });
+  }
+
+  forceRefresh() {
+    this.refreshing.set(true);
+    this.extraService.refresh().subscribe(() => {
+      setTimeout(() => this.refreshing.set(false), 4000);
     });
   }
 

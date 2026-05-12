@@ -1,6 +1,12 @@
 import requests
 from fetcher.session import SessionParser
 
+# Module-level Session for TCP/TLS connection reuse across all eAsistent API calls.
+_http = requests.Session()
+_adapter = requests.adapters.HTTPAdapter(pool_connections=20, pool_maxsize=20)
+_http.mount("https://", _adapter)
+_http.mount("http://", _adapter)
+
 
 class AuthRequest:
     def __init__(self, session: str):
@@ -18,7 +24,7 @@ class AuthRequest:
     def send_request(self, url):
         if self.session.session_id is None:
             return None
-        request = requests.request("GET", url, headers=self.get_headers())
+        request = _http.get(url, headers=self.get_headers(), timeout=10)
         if not request.ok:
             return None
         if request.status_code == 204:

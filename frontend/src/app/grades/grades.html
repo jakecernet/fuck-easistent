@@ -1,18 +1,24 @@
-<main>
-  <h2>{{ authService.getUsername() }}'s grades</h2>
-  <div class="grades">
+<div class="container fade-up">
+  <header class="page-head">
+    <h1>Ocene</h1>
+    <p class="muted">Klikni predmet za podroben pregled.</p>
+  </header>
+
+  <div class="grid grid-2">
     @for (subj of gradesMap(); track subj.subject.id) {
       <app-grade-item
         [subject]="subj.subject.short_name"
-        [grades]="subj.getGradeValues()"
+        [fullName]="subj.subject.name"
+        [grades]="subj.getRegularValues()"
+        [finalHalf]="subj.getFinalHalf()"
+        [finalYear]="subj.getFinalYear()"
         [subject_id]="subj.subject.id"
       ></app-grade-item>
     } @empty {
-      <p style="text-align: center">
-        You have no grades yet. <br />
-        If you have submitted your eAsistent login info they should appear shortly.
-      </p>
+      <div class="empty-state card" style="grid-column: 1/-1">
+        <div class="icon">★</div>
+        <p>Še nimaš ocen. Če si oddal eAsistent prijavo, se bodo kmalu pojavile.</p>
+      </div>
     }
   </div>
-  <div id="spacer"></div>
-</main>
+</div>

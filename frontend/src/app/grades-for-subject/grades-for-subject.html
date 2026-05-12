@@ -1,35 +1,48 @@
-<main>
+<div class="container fade-up">
   @if (isLoading()) {
-  <div class="whole-screen-centered">
-    <p>Loading...</p>
-  </div>
+    <div class="empty-state">Nalagam…</div>
   } @else if (subject() == null) {
-  <div class="whole-screen-centered">
-    <p>This subject does not exist!</p>
-  </div>
+    <div class="empty-state card">
+      <div class="icon">!</div>
+      <p>Predmet ne obstaja.</p>
+    </div>
   } @else {
-  <h2>{{ subject()!.short_name }}</h2>
-  <p class="subtitle">{{ subject()!.name }}</p>
-  @if (averageGrade() < 0) {
-  <p id="avg">Fetching average grade from eAsistent</p>
-  } @else if (averageGrade() == 0) {
-  <p id="avg">No average grade</p>
-  } @else {
-  <p id="avg" title="Results could be stale for 1 hour">
-    Average grade: <span style="font-weight: 800; color: var(--accent2)">{{ averageGrade() }}</span>
-  </p>
-  }
-  <p id="avg" title="Average calculated from local grades">
-    Local average: <span style="font-weight: 800; color: var(--accent2)">{{ localAverage() }}</span>
-  </p>
+    <header class="page-head">
+      <a routerLink="/grades" class="back muted">← nazaj</a>
+      <h1>{{ subject()!.short_name }}</h1>
+      <p class="muted">{{ subject()!.name }}</p>
+    </header>
 
-  <div class="grades">
-    @for (grade of grades(); track grade.id) {
-    <app-grade-info [grade]="grade"></app-grade-info>
+    <div class="grid grid-3 stats">
+      <div class="card stat">
+        <span class="muted">Povprečje (eAsistent)</span>
+        @if (averageGrade() < 0) {
+          <strong class="dim">…</strong>
+        } @else if (averageGrade() == 0) {
+          <strong class="dim">—</strong>
+        } @else {
+          <strong>{{ averageGrade() }}</strong>
+        }
+      </div>
+      <div class="card stat">
+        <span class="muted">Lokalno povprečje</span>
+        <strong>{{ localAverage() }}</strong>
+      </div>
+      <div class="card stat">
+        <span class="muted">Število ocen</span>
+        <strong>{{ grades().length }}</strong>
+      </div>
+    </div>
 
-    } @empty {
-    <p style="text-align: center">No grades yet...</p>
-    }
-  </div>
+    <div class="grid grid-2 grades-list">
+      @for (grade of grades(); track grade.id) {
+        <app-grade-info [grade]="grade"></app-grade-info>
+      } @empty {
+        <div class="empty-state card" style="grid-column: 1/-1">
+          <div class="icon">★</div>
+          <p>Ni ocen.</p>
+        </div>
+      }
+    </div>
   }
-</main>
+</div>

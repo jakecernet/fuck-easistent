@@ -1,45 +1,46 @@
-<main>
-  <h2>Login</h2>
-  <form (submit)="onSubmit($event)">
-    <div>
-      <label for="username">Username</label>
-      <input id="username" type="text" [formField]="loginForm.username" />
+<div class="auth-card fade-up">
+  <div class="brand-row">
+    <span class="brand-mark">f</span>
+    <span class="brand-text">fea</span>
+  </div>
+  <h1>Prijava</h1>
+  <p class="muted">Vpiši se v svoj račun.</p>
+  <form (submit)="onSubmit($event)" class="form">
+    <label>
+      <span class="label">Uporabniško ime</span>
+      <input id="username" type="text" [formField]="loginForm.username" autocomplete="username" />
       @if (loginForm.username().invalid() && loginForm.username().touched()) {
-      <div class="error">
-        @for (error of loginForm.username().errors(); track error.kind) {
-        <span>{{ error.message }}</span>
-        }
-      </div>
+        <div class="field-error">
+          @for (error of loginForm.username().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+          }
+        </div>
       }
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <div class="passwordContainer">
-        <input
-          id="password"
-          [type]="show ? 'text' : 'password'"
-          type="password"
-          [formField]="loginForm.password"
-        /><button type="button" id="showPassword" (click)="togglePassword()">
-          <img src="eye.svg" alt="o" />
+    </label>
+    <label>
+      <span class="label">Geslo</span>
+      <div class="password-wrap">
+        <input id="password" [type]="show ? 'text' : 'password'" [formField]="loginForm.password" autocomplete="current-password" />
+        <button type="button" class="ghost icon-btn" (click)="togglePassword()" aria-label="Pokaži geslo">
+          <img src="eye.svg" alt="" />
         </button>
       </div>
       @if (loginForm.password().invalid() && loginForm.password().touched()) {
-      <div class="error">
-        @for (error of loginForm.password().errors(); track error.kind) {
-        <span>{{ error.message }}</span>
-        }
-      </div>
+        <div class="field-error">
+          @for (error of loginForm.password().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+          }
+        </div>
       }
-    </div>
-    <button>
+    </label>
+    <button type="submit" [disabled]="loggingIn()">
       @if (loggingIn()) {
-      <img id="refreshIndicator" src="refresh.svg" alt="Loading" />
-      } @else { Log in }
+        <img class="spin" src="refresh.svg" alt="" />
+      } @else { Prijava }
     </button>
-    @if (error().length > 0 ) {
-    <p class="error" id="loginerror">{{ error() }}</p>
+    @if (error().length > 0) {
+      <p class="field-error">{{ error() }}</p>
     }
-    <p>If you don't have an account you can make one <a href="/register">here</a>.</p>
+    <p class="muted center">Nimaš računa? <a href="/register">Registriraj se</a></p>
   </form>
-</main>
+</div>

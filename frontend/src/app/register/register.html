@@ -1,56 +1,57 @@
-<main>
-  <h2>Register</h2>
-  <form (submit)="onSubmit($event)">
-    <div>
-      <label for="username">Username</label>
+<div class="auth-card fade-up">
+  <div class="brand-row">
+    <span class="brand-mark">f</span>
+    <span class="brand-text">fea</span>
+  </div>
+  <h1>Registracija</h1>
+  <p class="muted">Ustvari nov račun.</p>
+  <form (submit)="onSubmit($event)" class="form">
+    <label>
+      <span class="label">Uporabniško ime</span>
       <input id="username" type="text" [formField]="registerForm.username" />
       @if (registerForm.username().invalid() && registerForm.username().touched()) {
-      <div class="error">
-        @for (error of registerForm.username().errors(); track error.kind) {
-        <span>{{ error.message }}</span>
-        }
-      </div>
+        <div class="field-error">
+          @for (error of registerForm.username().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+          }
+        </div>
       }
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <div class="passwordContainer">
-        <input
-          id="password"
-          [type]="show ? 'text' : 'password'"
-          type="password"
-          [formField]="registerForm.password"
-        /><button type="button" id="showPassword" tabindex="-1" (click)="togglePassword()">
-          <img src="eye.svg" alt="o" />
+    </label>
+    <label>
+      <span class="label">Geslo</span>
+      <div class="password-wrap">
+        <input id="password" [type]="show ? 'text' : 'password'" [formField]="registerForm.password" />
+        <button type="button" class="ghost icon-btn" tabindex="-1" (click)="togglePassword()" aria-label="Pokaži geslo">
+          <img src="eye.svg" alt="" />
         </button>
       </div>
       @if (registerForm.password().invalid() && registerForm.password().touched()) {
-      <div class="error">
-        @for (error of registerForm.password().errors(); track error.kind) {
-        <span>{{ error.message }}</span>
-        }
-      </div>
+        <div class="field-error">
+          @for (error of registerForm.password().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+          }
+        </div>
       }
-    </div>
-    <div>
-      <label for="inviteCode">Invite code</label>
+    </label>
+    <label>
+      <span class="label">Invite koda</span>
       <input id="inviteCode" type="text" [formField]="registerForm.inviteCode" />
       @if (registerForm.inviteCode().invalid() && registerForm.inviteCode().touched()) {
-      <div class="error">
-        @for (error of registerForm.inviteCode().errors(); track error.kind) {
-        <span>{{ error.message }}</span>
-        }
-      </div>
+        <div class="field-error">
+          @for (error of registerForm.inviteCode().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+          }
+        </div>
       }
-    </div>
-    <button>
+    </label>
+    <button type="submit" [disabled]="loggingIn()">
       @if (loggingIn()) {
-      <img id="refreshIndicator" src="refresh.svg" alt="Loading" />
-      } @else { Register }
+        <img class="spin" src="refresh.svg" alt="" />
+      } @else { Registriraj se }
     </button>
-    @if (error().length > 0 ) {
-    <p class="error" id="loginerror">{{ error() }}</p>
+    @if (error().length > 0) {
+      <p class="field-error">{{ error() }}</p>
     }
-    <p>If you already have an account you can log in <a href="/login">here</a>.</p>
+    <p class="muted center">Že imaš račun? <a href="/login">Prijavi se</a></p>
   </form>
-</main>
+</div>
