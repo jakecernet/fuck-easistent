@@ -46,7 +46,11 @@ export class Login {
 				},
 				error: (err) => {
 					this.loggingIn.set(false);
-					this.error.set('Invalid username or password');
+					if (err.status === 401) {
+						this.error.set('Invalid username or password');
+					} else {
+						this.error.set('Cannot connect to server');
+					}
 
 					console.error(err);
 				},

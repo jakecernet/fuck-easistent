@@ -46,8 +46,10 @@ export class Register {
 				error: (err) => {
 					this.loggingIn.set(false);
 
-					if (err.error['message']) {
-						this.error.set(err.error['message']);
+					if (err.status === 0) {
+						this.error.set('Cannot connect to server');
+					} else if (err.error?.message) {
+						this.error.set(err.error.message);
 					} else {
 						this.error.set('Something went wrong!');
 					}
