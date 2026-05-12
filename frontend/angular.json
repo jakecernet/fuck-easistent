@@ -29,7 +29,6 @@
 					},
 					"configurations": {
 						"production": {
-							"baseHref": "/fuck-easistent/",
 							"budgets": [
 								{
 									"type": "initial",
