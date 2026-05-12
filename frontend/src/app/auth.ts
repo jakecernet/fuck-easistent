@@ -69,11 +69,8 @@ export class Auth {
     return this.username;
   }
 
-  create_account(username: string, password: string, invite_code: string): Observable<any> {
-    const body = new HttpParams()
-      .set('username', username)
-      .set('password', password)
-      .set('inviteCode', invite_code);
+  create_account(username: string, password: string): Observable<any> {
+    const body = new HttpParams().set('username', username).set('password', password);
     return this.http
       .post(environment.apiUrl + '/create-user', body.toString(), {
         headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),

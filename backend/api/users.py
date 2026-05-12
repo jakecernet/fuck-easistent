@@ -14,7 +14,6 @@ from api.auth import (
     create_user,
     get_current_user,
 )
-from api.invites import use_invite
 import db
 
 
@@ -30,14 +29,7 @@ class EasistentLoginModel(BaseModel):
 async def create_account(
     username: Annotated[str, Form()],
     password: Annotated[str, Form()],
-    inviteCode: Annotated[str, Form()],
 ):
-    if not use_invite(inviteCode):
-        return JSONResponse(
-            content={"success": False, "message": "Invalid invite code"},
-            status_code=403,
-        )  # Forbidden
-
     if create_user(username, password):
         return JSONResponse(
             content={"success": True, "message": "Ok"}, status_code=201

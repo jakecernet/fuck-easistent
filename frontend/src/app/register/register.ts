@@ -5,7 +5,6 @@ import { Auth } from '../auth';
 interface RegisterData {
   username: string;
   password: string;
-  inviteCode: string;
 }
 
 @Component({
@@ -22,7 +21,6 @@ export class Register {
   registerModel = signal<RegisterData>({
     username: '',
     password: '',
-    inviteCode: '',
   });
 
   registerForm = form(this.registerModel, (fieldPath) => {
@@ -31,7 +29,6 @@ export class Register {
 
     required(fieldPath.password, { message: 'Password is required' });
     minLength(fieldPath.password, 8, { message: 'Password should be at least 8 characters' });
-    required(fieldPath.inviteCode, { message: 'Invite code is required' });
   });
 
   onSubmit(event: Event) {
@@ -40,24 +37,22 @@ export class Register {
       const credentials = this.registerModel();
 
       this.loggingIn.set(true);
-      this.authService
-        .create_account(credentials.username, credentials.password, credentials.inviteCode)
-        .subscribe({
-          next: (res) => {
-            console.log('Ok');
-            this.loggingIn.set(false);
-          },
-          error: (err) => {
-            this.loggingIn.set(false);
+      this.authService.create_account(credentials.username, credentials.password).subscribe({
+        next: (res) => {
+          console.log('Ok');
+          this.loggingIn.set(false);
+        },
+        error: (err) => {
+          this.loggingIn.set(false);
 
-            if (err.error['message']) {
-              this.error.set(err.error['message']);
-            } else {
-              this.error.set('Something went wrong!');
-            }
-            console.error(err);
-          },
-        });
+          if (err.error['message']) {
+            this.error.set(err.error['message']);
+          } else {
+            this.error.set('Something went wrong!');
+          }
+          console.error(err);
+        },
+      });
     });
   }
 

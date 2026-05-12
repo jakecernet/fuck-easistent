@@ -46,29 +46,6 @@
     </div>
   </section>
 
-  @if (authService.getUsername() == 'admin') {
-    <section class="card stack">
-      <div class="row between">
-        <h2>Invite kode</h2>
-        <button class="ghost" (click)="generateInviteCode()">+ Nova koda</button>
-      </div>
-      @if (inviteCodes().length) {
-        <div class="invite-list">
-          @for (code of inviteCodes(); track $index) {
-            <div class="invite-row">
-              <code class="mono">{{ code }}</code>
-              <button class="ghost small" (click)="removeInviteCode(code)" aria-label="Izbriši">
-                ✕
-              </button>
-            </div>
-          }
-        </div>
-      } @else {
-        <p class="muted">Ni aktivnih invite kod.</p>
-      }
-    </section>
-  }
-
   <section class="card stack danger-zone">
     <div>
       <h2>Nevarna cona</h2>

@@ -20,8 +20,18 @@
     <label>
       <span class="label">Geslo</span>
       <div class="password-wrap">
-        <input id="password" [type]="show ? 'text' : 'password'" [formField]="registerForm.password" />
-        <button type="button" class="ghost icon-btn" tabindex="-1" (click)="togglePassword()" aria-label="Pokaži geslo">
+        <input
+          id="password"
+          [type]="show ? 'text' : 'password'"
+          [formField]="registerForm.password"
+        />
+        <button
+          type="button"
+          class="ghost icon-btn"
+          tabindex="-1"
+          (click)="togglePassword()"
+          aria-label="Pokaži geslo"
+        >
           <img src="eye.svg" alt="" />
         </button>
       </div>
@@ -33,21 +43,12 @@
         </div>
       }
     </label>
-    <label>
-      <span class="label">Invite koda</span>
-      <input id="inviteCode" type="text" [formField]="registerForm.inviteCode" />
-      @if (registerForm.inviteCode().invalid() && registerForm.inviteCode().touched()) {
-        <div class="field-error">
-          @for (error of registerForm.inviteCode().errors(); track error.kind) {
-            <span>{{ error.message }}</span>
-          }
-        </div>
-      }
-    </label>
     <button type="submit" [disabled]="loggingIn()">
       @if (loggingIn()) {
         <img class="spin" src="refresh.svg" alt="" />
-      } @else { Registriraj se }
+      } @else {
+        Registriraj se
+      }
     </button>
     @if (error().length > 0) {
       <p class="field-error">{{ error() }}</p>

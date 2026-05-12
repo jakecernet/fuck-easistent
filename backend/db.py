@@ -69,15 +69,6 @@ def setup():
 
     db.execute(
         """
-        CREATE TABLE IF NOT EXISTS Invites (
-            invite_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            code VARCHAR(8) NOT NULL UNIQUE
-        );
-"""
-    )
-
-    db.execute(
-        """
     CREATE TABLE IF NOT EXISTS ServerInfo (
         id INTEGER PRIMARY KEY CHECK (id = 1),
         last_check INTEGER DEFAULT None,
@@ -168,47 +159,6 @@ def delete_user(user_id):
 
         except Exception as e:
             print(e)
-            return False
-
-
-def list_invites():
-
-    codes = []
-
-    with connect() as db:
-        res = db.execute("SELECT * FROM Invites")
-
-        for c in res.fetchall():
-
-            code_id, code = c
-
-            codes.append({"code_id": code_id, "code": code})
-
-    return codes
-
-
-def insert_invite(code: str):
-    with connect() as db:
-        try:
-            db.execute("INSERT INTO Invites (code) VALUES (?)", (code,))
-            return True
-        except Exception as e:
-            print("[ERROR]", e)
-            return False
-
-
-def invite_code_exists(code: str):
-    with connect() as db:
-        res = db.execute("SELECT * FROM Invites WHERE Invites.code = ?", (code,))
-        return len(res.fetchall()) > 0
-
-
-def remove_invite_code(code: str):
-    with connect() as db:
-        try:
-            db.execute("DELETE FROM Invites WHERE Invites.code = ?", (code,))
-            return True
-        except Exception as e:
             return False
 
 

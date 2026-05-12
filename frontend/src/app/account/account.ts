@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
 import { Auth } from '../auth';
-import { Invites } from '../services/invites';
 import { Grades } from '../services/grades';
 import { Extra } from '../services/extra';
 import { FormsModule } from '@angular/forms';
@@ -13,41 +12,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class Account {
   authService = inject(Auth);
-  inviteService = inject(Invites);
   gradeService = inject(Grades);
   extraService = inject(Extra);
-  inviteCodes = signal<string[]>([]);
   refreshing = signal(false);
 
   confirmAccountDeletion = signal(false);
 
   username: string = '';
   password: string = '';
-
-  ngOnInit() {
-    this.loadInviteCodes();
-  }
-
-  loadInviteCodes() {
-    this.inviteService.loadInvites().subscribe((res) => {
-      console.log(res);
-      this.inviteCodes.set(res);
-    });
-  }
-
-  generateInviteCode() {
-    this.inviteService.generateInvite().subscribe((res) => {
-      console.log(`Generated invite code: ${res}`);
-      this.loadInviteCodes();
-    });
-  }
-
-  removeInviteCode(code: string) {
-    console.log(`Removing: ${code}`);
-    this.inviteService.removeInvite(code).subscribe((_) => {
-      this.loadInviteCodes();
-    });
-  }
 
   forceRefresh() {
     this.refreshing.set(true);
@@ -57,12 +29,12 @@ export class Account {
   }
 
   clearData() {
-    if (confirm("Are you sure?\nThis deletes all saved grades.")) {
-      this.gradeService.clearData().subscribe(res => {
+    if (confirm('Are you sure?\nThis deletes all saved grades.')) {
+      this.gradeService.clearData().subscribe((res) => {
         if (res) {
-          alert("Saved data deleted succesfully!");
+          alert('Saved data deleted succesfully!');
         } else {
-          alert("Failed to delete data!")
+          alert('Failed to delete data!');
         }
       });
     }
